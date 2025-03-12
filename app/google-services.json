@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "255552194114",
+    "project_id": "stayconnect-7bbc4",
+    "storage_bucket": "stayconnect-7bbc4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255552194114:android:073b5177c7e9b754140fdb",
+        "android_client_info": {
+          "package_name": "com.example.stayconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255552194114-epana8mfk4q8q8b2qj0guhie87n876r1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stayconnect",
+            "certificate_hash": "fbca3776073ec3a8f3babf1d18a87ad7c51fc030"
+          }
+        },
+        {
+          "client_id": "255552194114-ao8io2gbjekitrjbgasgcb99j9c0ad4a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxS3RNHZw8FMMTuSFlQN9VOTpRszGtFrE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255552194114-ao8io2gbjekitrjbgasgcb99j9c0ad4a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
