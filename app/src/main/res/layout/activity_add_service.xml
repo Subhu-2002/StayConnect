@@ -73,37 +73,22 @@
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 app:spanCount="4"/>
 
-            <TextView
-                android:id="@+id/roomDetailsTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ROOM DETAILS"
-                android:textStyle="bold"
-                android:layout_below="@id/imagesRv"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/black"
-                android:textSize="16dp"/>
-            
-            <View
-                android:id="@+id/view1"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#959595"
-                android:layout_below="@+id/roomDetailsTv"
-                android:layout_marginTop="5dp"/>
-            
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="NO. OF ROOMS"
-                android:layout_below="@+id/view1"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/black"/>
-            
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width=""
-                android:layout_height=""
-            
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ROOM DETAILS"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+
+                    <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+
         </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
