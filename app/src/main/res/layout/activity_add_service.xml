@@ -73,20 +73,370 @@
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 app:spanCount="4"/>
 
+            <LinearLayout
+                android:id="@+id/roomDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/imagesRv">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="16dp"
+                    >
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="ROOM DETAILS"
                         android:textStyle="bold"
+                        android:textSize="16sp"
                         android:textColor="@color/black"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
 
+                        />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
+                        android:background="?android:attr/listDivider"/>
+                </LinearLayout>
 
-                    <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp"
+                    >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="NO.OF ROOMS"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_marginEnd="8dp"
+
+                        />
+                    <EditText
+                        android:layout_width="72dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:background="@drawable/input_box"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ROOM TYPE"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_marginEnd="8dp"
+
+                        />
+                    <EditText
+                        android:layout_width="72dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:background="@drawable/input_box"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ROOM CAPACITY"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_marginEnd="8dp"
+
+                        />
+                    <EditText
+                        android:layout_width="72dp"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:background="@drawable/input_box"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="RENT"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_marginEnd="8dp"
+
+                        />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/input_box"
+                        android:padding="8dp">
+                        <EditText
+                            android:id="@+id/rent"
+                            android:minWidth="44dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:textColor="@color/black"
+                            android:inputType="number"
+                            android:imeOptions="flagNoExtractUi|flagNoFullscreen"
+                            android:gravity="right|end"
+                            android:textAlignment="viewEnd"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" /month"
+                            android:textSize="18sp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/guardianInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/roomDetails">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_weight="1"
+                        android:text="GAURDIAN INFO"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+
+                        />
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/input_box"
+                    android:hint="Hostel Name"
+                    android:padding="12dp" />
+
+                <EditText
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/input_box"
+                    android:hint="Hostel Address"
+                    android:padding="12dp" />
+
+                <TextView
+                    android:id="@+id/get_location_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:drawableEnd="@drawable/ic_location"
+                    android:text="Get Current Location"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/input_box"
+                    android:hint="Mobile number"
+                    android:inputType="number"
+                    android:padding="12dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/services"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@id/guardianInfo">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:text="SERVICES"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Wi-Fi"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="BreakFast"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Drinking Water"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="Mess Service"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/services">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"
+                    android:text="DESCRIPTION"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/textView_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/input_box"
+                        android:gravity="top|start"
+                        android:hint="Write Description Here"
+                        android:inputType="textMultiLine"
+                        android:minLines="5"
+                        android:padding="12dp" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/add_details_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/description"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/gradient_button_background"
+                android:text="ADD DETAILS"
+                android:textColor="@color/white" />
 
 
         </RelativeLayout>

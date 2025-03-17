@@ -50,13 +50,18 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
     implementation(libs.firebase.crashlytics)
-    implementation("com.google.android.gms:play-services-auth:21.3.0")
+    implementation(libs.play.services.auth)
+
+
+    implementation(libs.play.services.maps)
+    implementation(libs.places)
+    implementation(libs.play.services.location)
 
     // Country Code Picker
-    implementation ("com.hbb20:ccp:2.7.0")
+    implementation (libs.ccp)
 
     // Image Processing
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation (libs.glide)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
