@@ -1,0 +1,152 @@
+package com.example.stayconnect;
+
+public class ModelHostel {
+
+    String id;
+    String uid;
+    String noOfRooms;
+    String roomType;
+    String roomCapacity;
+    String rent;
+    String hostelName;
+    String hostelAddress;
+    String ownerContactNumber;
+    String descriptionEt;
+    long timeStamp;
+    double latitude;
+    double longitude;
+    boolean favorite;
+
+    public ModelHostel() {
+
+    }
+
+    public ModelHostel(String id, String uid, String noOfRooms, String roomType, String roomCapacity, String rent, String hostelName, String hostelAddress, String ownerContactNumber, String descriptionEt, long timeStamp, double latitude, double longitude, boolean favorite) {
+        this.id = id;
+        this.uid = uid;
+        this.noOfRooms = noOfRooms;
+        this.roomType = roomType;
+        this.roomCapacity = roomCapacity;
+        this.rent = rent;
+        this.hostelName = hostelName;
+        this.hostelAddress = hostelAddress;
+        this.ownerContactNumber = ownerContactNumber;
+        this.descriptionEt = descriptionEt;
+        this.timeStamp = timeStamp;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.favorite = favorite;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getNoOfRooms() {
+        return noOfRooms;
+    }
+
+    public void setNoOfRooms(String noOfRooms) {
+        this.noOfRooms = noOfRooms;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+
+    public String getRoomCapacity() {
+        return roomCapacity;
+    }
+
+    public void setRoomCapacity(String roomCapacity) {
+        this.roomCapacity = roomCapacity;
+    }
+
+    public String getRent() {
+        return rent;
+    }
+
+    public void setRent(String rent) {
+        this.rent = rent;
+    }
+
+    public String getHostelName() {
+        return hostelName;
+    }
+
+    public void setHostelName(String hostelName) {
+        this.hostelName = hostelName;
+    }
+
+    public String getHostelAddress() {
+        return hostelAddress;
+    }
+
+    public void setHostelAddress(String hostelAddress) {
+        this.hostelAddress = hostelAddress;
+    }
+
+    public String getOwnerContactNumber() {
+        return ownerContactNumber;
+    }
+
+    public void setOwnerContactNumber(String ownerContactNumber) {
+        this.ownerContactNumber = ownerContactNumber;
+    }
+
+    public String getDescriptionEt() {
+        return descriptionEt;
+    }
+
+    public void setDescriptionEt(String descriptionEt) {
+        this.descriptionEt = descriptionEt;
+    }
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+}
