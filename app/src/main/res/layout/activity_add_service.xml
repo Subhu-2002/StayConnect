@@ -31,6 +31,7 @@
             style="@style/TextAppearance.MaterialComponents.Body1"/>
 
         <ImageButton
+            android:id="@+id/toolbarAddImageBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add_photo_white"
@@ -125,6 +126,7 @@
 
                         />
                     <EditText
+                        android:id="@+id/noOfRooms"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -153,6 +155,7 @@
 
                         />
                     <EditText
+                        android:id="@+id/roomType"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -181,6 +184,7 @@
 
                         />
                     <EditText
+                        android:id="@+id/roomCapacity"
                         android:layout_width="72dp"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -272,7 +276,7 @@
                 </LinearLayout>
 
                 <EditText
-                    android:id="@+id/name"
+                    android:id="@+id/hostelName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
@@ -281,7 +285,7 @@
                     android:padding="12dp" />
 
                 <EditText
-                    android:id="@+id/address"
+                    android:id="@+id/hostelAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -290,7 +294,7 @@
                     android:padding="12dp" />
 
                 <TextView
-                    android:id="@+id/get_location_textview"
+                    android:id="@+id/getLocationTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -300,7 +304,7 @@
                     android:textSize="16sp" />
 
                 <EditText
-                    android:id="@+id/contact"
+                    android:id="@+id/ownerContactNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
@@ -412,7 +416,7 @@
                     android:orientation="vertical">
 
                     <EditText
-                        android:id="@+id/textView_description"
+                        android:id="@+id/descriptionEt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
@@ -429,7 +433,7 @@
 
 
             <Button
-                android:id="@+id/add_details_button"
+                android:id="@+id/addDetailsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/description"

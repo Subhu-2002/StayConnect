@@ -123,7 +123,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
         });
 
 
-        binding.locationAct.setOnClickListener(new View.OnClickListener() {
+        binding.getLocationTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Intent intent = new Intent(AddServiceActivity.this, LocationPickerActivity.class);
@@ -167,7 +167,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
                             Log.d(TAG, "onActivityResult: Longitude : " + longitude);
                             Log.d(TAG, "onActivityResult: Address : " + hostelAddress);
 
-                            binding.locationAct.setText(hostelAddress);
+                            binding.hostelAddress.setText(hostelAddress);
 
                         }else{
                             Log.d(TAG, "onActivityResult: Cancelled");
@@ -369,7 +369,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
         roomCapacity = binding.roomCapacity.getText().toString().trim();
         rent = binding.rent.getText().toString().trim();
         hostelName = binding.hostelName.getText().toString().trim();
-        hostelAddress = binding.locationAct.getText().toString().trim();
+        hostelAddress = binding.hostelAddress.getText().toString().trim();
         ownerContactNumber = binding.ownerContactNumber.getText().toString().trim();
         descriptionEt = binding.descriptionEt.getText().toString().trim();
 
@@ -394,8 +394,8 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
             binding.hostelName.requestFocus();
 
         } else if (hostelAddress.isEmpty()) {
-            binding.locationAct.setError("Enter No. of Rooms");
-            binding.locationAct.requestFocus();
+            binding.hostelAddress.setError("Enter No. of Rooms");
+            binding.hostelAddress.requestFocus();
 
         } else if (ownerContactNumber.isEmpty()) {
             binding.ownerContactNumber.setError("Enter No. of Rooms");
@@ -534,7 +534,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
             latitude = location.getLatitude();
             longitude = location.getLongitude();
 
-            binding.locationAct.setText(address);
+            binding.hostelAddress.setText(address);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
