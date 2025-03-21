@@ -21,6 +21,13 @@ public class ModelHostel {
 
     }
 
+    public ModelHostel(String hostelName, String hostelAddress, String rent, String descriptionEt){
+        this.hostelName = hostelName;
+        this.hostelAddress = hostelAddress;
+        this.rent = rent ;
+        this.descriptionEt = descriptionEt;
+    }
+
     public ModelHostel(String id, String uid, String noOfRooms, String roomType, String roomCapacity, String rent, String hostelName, String hostelAddress, String ownerContactNumber, String descriptionEt, long timeStamp, double latitude, double longitude, boolean favorite) {
         this.id = id;
         this.uid = uid;

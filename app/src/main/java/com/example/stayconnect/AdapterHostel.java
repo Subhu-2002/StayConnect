@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -23,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHostel> {
+public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHostel> implements Filterable {
 
     private RowServicesBinding binding;
 
@@ -31,7 +33,10 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
 
     private Context context;
 
-    private ArrayList<ModelHostel> hostelArrayList;
+    public ArrayList<ModelHostel> hostelArrayList;
+    private ArrayList<ModelHostel> filterList;
+
+    private FilterService filter;
 
     private FirebaseAuth firebaseAuth;
 
@@ -39,7 +44,12 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
 
     public AdapterHostel(Context context, ArrayList<ModelHostel> hostelArrayList) {
         this.context = context;
-        this.hostelArrayList = hostelArrayList;
+
+        if(hostelArrayList == null){
+            this.hostelArrayList = new ArrayList<>();
+        }else{
+            this.hostelArrayList = hostelArrayList;
+        }
 
         firebaseAuth = FirebaseAuth.getInstance();
     }
@@ -57,17 +67,72 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
 
         ModelHostel modelHostel = hostelArrayList.get(position);
 
+        if (modelHostel != null && modelHostel.getId() != null) { // Check if hostel and hostel.getId() are not null
+            Log.d("AdapterHostel", "Hostel ID: " + modelHostel.getId()); // Log the ID
+            checkIsFavorite(modelHostel, holder);
+        } else {
+            Log.e("AdapterHostel", "Error: Hostel or Hostel ID is null at position " + position);
+        }
+
         String hostelName = modelHostel.getHostelName();
         String hostelAddress = modelHostel.getHostelAddress();
         String descriptionEt = modelHostel.getDescriptionEt();
         String rent = modelHostel.getRent();
 
-        loadHostelFirstImage(modelHostel, holder);
+//        loadHostelFirstImage(modelHostel, holder);
+
+//        if(firebaseAuth.getCurrentUser() != null){
+//            checkIsFavorite(modelHostel, holder);
+//        }
+
 
         holder.titleTv.setText(hostelName);
         holder.descriptionTv.setText(descriptionEt);
         holder.priceTv.setText(rent);
         holder.addressTv.setText(hostelAddress);
+
+
+        holder.favBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boolean favorite = modelHostel.isFavorite();
+                if(favorite){
+
+                    Utils.removeFromFavorite(context, modelHostel.getId());
+                }else{
+
+                    Utils.addToFavorite(context, modelHostel.getId());
+                }
+            }
+        });
+    }
+
+    private void checkIsFavorite(ModelHostel modelHostel, HolderHostel holder) {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.child(firebaseAuth.getUid()).child("Favorites").child(modelHostel.getId())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        boolean favorite = snapshot.exists();
+
+                        modelHostel.setFavorite(favorite);
+
+                        if(favorite){
+                            holder.favBtn.setImageResource(R.drawable.ic_fav_yes);
+                        }else {
+
+                            holder.favBtn.setImageResource(R.drawable.ic_fav_no);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void loadHostelFirstImage(ModelHostel modelHostel, HolderHostel holder) {
@@ -98,14 +163,24 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Log.d(TAG, "onCancelled: Cancelled");;
                     }
                 });
     }
 
     @Override
     public int getItemCount() {
-        return hostelArrayList.size();
+        return (hostelArrayList != null) ? hostelArrayList.size() : 0;
+    }
+
+    @Override
+    public Filter getFilter() {
+
+        if (filter == null){
+            filter = new FilterService(this, filterList);
+        }
+
+        return filter;
     }
 
     class HolderHostel extends RecyclerView.ViewHolder{

@@ -138,6 +138,18 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
             }
         });
 
+        binding.hostelAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ContextCompat.checkSelfPermission(AddServiceActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions(AddServiceActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+                }
+
+                getLocation();
+            }
+        });
+
         binding.addDetailsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
