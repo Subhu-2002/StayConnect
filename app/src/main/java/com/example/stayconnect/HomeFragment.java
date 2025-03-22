@@ -84,14 +84,14 @@ public class HomeFragment extends Fragment implements LocationCallback {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        locationSp = mcontext.getSharedPreferences("LOCATION_SP", Context.MODE_PRIVATE);
-        currentLatitude = locationSp.getFloat("CURRENT_LATITUDE", 0.0f);
-        currentLongitude = locationSp.getFloat("CURRENT_LONGITUDE", 0.0f);
-        currentAddress = locationSp.getString("CURRENT_ADDRESS", "");
-
-        if(currentLatitude != 0.0 && currentLongitude != 0.0){
-            binding.locationTv.setText(currentAddress);
-        }
+//        locationSp = mcontext.getSharedPreferences("LOCATION_SP", Context.MODE_PRIVATE);
+//        currentLatitude = locationSp.getFloat("CURRENT_LATITUDE", 0.0f);
+//        currentLongitude = locationSp.getFloat("CURRENT_LONGITUDE", 0.0f);
+//        currentAddress = locationSp.getString("CURRENT_ADDRESS", "");
+//
+//        if(currentLatitude != 0.0 && currentLongitude != 0.0){
+//            binding.locationTv.setText(currentAddress);
+//        }
 
         loadCategories();
 
@@ -144,42 +144,42 @@ public class HomeFragment extends Fragment implements LocationCallback {
         //----------------------------------------------------------------------
     }
 
-    private ActivityResultLauncher<Intent> locationPickerActivityResult = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Log.d(TAG, "onActivityResult: Result Ok");
-
-                        Intent data = result.getData();
-
-                        if (data != null) {
-
-                            Log.d(TAG, "onActivityResult: Location Picked");
-
-                            currentLatitude = data.getDoubleExtra("latitude", 0.0);
-                            currentLongitude = data.getDoubleExtra("longitude", 0.0);
-                            currentAddress = data.getStringExtra("address");
-
-                            locationSp.edit()
-                                    .putFloat("CURRENT_LATITUDE", Float.parseFloat(""+currentLatitude))
-                                    .putFloat("CURRENT_LONGITUDE", Float.parseFloat(""+currentLongitude))
-                                    .putString("CURRENT_ADDRESS", currentAddress)
-                                    .apply();
-
-                            binding.locationTv.setText(currentAddress);
-
-
-                        }
-                    }else{
-                        Log.d(TAG, "onActivityResult: Cancelled...");
-                        Toast.makeText(mcontext, "Cancelled...", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-    );
+//    private ActivityResultLauncher<Intent> locationPickerActivityResult = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(),
+//            new ActivityResultCallback<ActivityResult>() {
+//                @Override
+//                public void onActivityResult(ActivityResult result) {
+//
+//                    if (result.getResultCode() == Activity.RESULT_OK) {
+//                        Log.d(TAG, "onActivityResult: Result Ok");
+//
+//                        Intent data = result.getData();
+//
+//                        if (data != null) {
+//
+//                            Log.d(TAG, "onActivityResult: Location Picked");
+//
+//                            currentLatitude = data.getDoubleExtra("latitude", 0.0);
+//                            currentLongitude = data.getDoubleExtra("longitude", 0.0);
+//                            currentAddress = data.getStringExtra("address");
+//
+//                            locationSp.edit()
+//                                    .putFloat("CURRENT_LATITUDE", Float.parseFloat(""+currentLatitude))
+//                                    .putFloat("CURRENT_LONGITUDE", Float.parseFloat(""+currentLongitude))
+//                                    .putString("CURRENT_ADDRESS", currentAddress)
+//                                    .apply();
+//
+//                            binding.locationTv.setText(currentAddress);
+//
+//
+//                        }
+//                    }else{
+//                        Log.d(TAG, "onActivityResult: Cancelled...");
+//                        Toast.makeText(mcontext, "Cancelled...", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//    );
 
     private void loadCategories(){
         ArrayList<ModelCategory> categoryArrayList = new ArrayList<>();
@@ -197,15 +197,15 @@ public class HomeFragment extends Fragment implements LocationCallback {
         AdapterCategory adapterCategory = new AdapterCategory(mcontext, categoryArrayList, new RvListenerCategory() {
             @Override
             public void onCategoryClick(ModelCategory modelCategory) {
-
+                loadAds(modelCategory.getCategory());
             }
         });
 
         binding.serviceCategoryRv.setAdapter(adapterCategory);
     }
 
-    private void loadAds(String category) {
-        Log.d(TAG, "loadAds: ");
+    private void loadAds(String selectedCategory) {
+        Log.d(TAG, "loadAds: Category : "+selectedCategory);
 
         hostelArrayList = new ArrayList<>();
 
@@ -216,74 +216,80 @@ public class HomeFragment extends Fragment implements LocationCallback {
                 hostelArrayList.clear();
 
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    //ModelHostel modelHostel = ds.getValue(ModelHostel.class); //Old code
-                    //Create ModelHostel object here and set values to it.
-                    ModelHostel modelHostel = new ModelHostel();
-                    try {
+                    // Get the values from Firebase
+                    String latitudeString = ds.child("latitude").getValue(String.class);
+                    String longitudeString = ds.child("longitude").getValue(String.class);
+                    Log.d(TAG, "onDataChange: latitudeString: "+latitudeString);
+                    Log.d(TAG, "onDataChange: longitudeString: "+longitudeString);
 
-                        // Convert latitude and longitude from String to double
-                        String latitudeString = ds.child("latitude").getValue(String.class);
-                        String longitudeString = ds.child("longitude").getValue(String.class);
-                        String hostelName = ds.child("hostelName").getValue(String.class);
-                        String hostelAddress = ds.child("hostelAddress").getValue(String.class);
-                        String rent = ds.child("rent").getValue(String.class);
-                        String description = ds.child("description").getValue(String.class);
 
-                        double latitude = 0.0;
-                        double longitude = 0.0;
+                    String hostelName = ds.child("hostelName").getValue(String.class);
+                    String hostelAddress = ds.child("hostelAddress").getValue(String.class);
+                    String rent = ds.child("rent").getValue(String.class);
+                    String description = ds.child("description").getValue(String.class);
+                    String category = ds.child("category").getValue(String.class);
+                    String hostelId = ds.child("id").getValue(String.class);
 
-                        //Error checking in case the latitude or longitude is missing or is a bad value.
-                        if (latitudeString != null && !latitudeString.isEmpty()) {
-                            try {
-                                latitude = Double.parseDouble(latitudeString);
-                            } catch (NumberFormatException e) {
-                                Log.e(TAG, "Error parsing latitude: " + latitudeString, e);
-                                // Handle the error (e.g., set a default value, skip this ad)
-                                continue; // Skip to the next ad if latitude is invalid
+
+                    double latitude = 0.0;
+                    double longitude = 0.0;
+
+                    //Error checking in case the latitude or longitude is missing or is a bad value.
+                    if (latitudeString != null && !latitudeString.isEmpty()) {
+                        try {
+                            latitude = Double.parseDouble(latitudeString);
+                        } catch (NumberFormatException e) {
+                            Log.e(TAG, "Error parsing latitude: " + latitudeString, e);
+                            // Handle the error (e.g., set a default value, skip this ad)
+                            continue; // Skip to the next ad if latitude is invalid
+                        }
+                    } else {
+                        Log.w(TAG, "Latitude is null or empty");
+                        continue;
+                    }
+
+                    if (longitudeString != null && !longitudeString.isEmpty()) {
+                        try {
+                            longitude = Double.parseDouble(longitudeString);
+                        } catch (NumberFormatException e) {
+                            Log.e(TAG, "Error parsing longitude: " + longitudeString, e);
+                            // Handle the error (e.g., set a default value, skip this ad)
+                            continue; // Skip to the next ad if longitude is invalid
+                        }
+                    } else {
+                        Log.w(TAG, "Longitude is null or empty");
+                        continue;
+                    }
+
+                    // Create ModelHostel object
+                    ModelHostel modelHostel = new ModelHostel(); // Use the default constructor
+                    modelHostel.setId(hostelId);
+                    modelHostel.setLatitude(latitude);
+                    modelHostel.setLongitude(longitude);
+                    modelHostel.setHostelName(hostelName);
+                    modelHostel.setHostelAddress(hostelAddress);
+                    modelHostel.setRent(rent);
+                    modelHostel.setDescriptionEt(description);
+                    modelHostel.setCategory(category);
+
+
+                    double distance = calculateDistanceKm(latitude, longitude);
+                    Log.d(TAG, "onDataChange: distance: " + distance);
+
+                    if(selectedCategory != null) {
+                        if (selectedCategory.equals("All")) {
+                            if (distance <= MAX_DISTANCE_TO_LOAD_ADS_KM) {
+                                hostelArrayList.add(modelHostel);
                             }
                         } else {
-                            Log.w(TAG, "Latitude is null or empty");
-                            continue;
-                        }
-
-                        if (longitudeString != null && !longitudeString.isEmpty()) {
-                            try {
-                                longitude = Double.parseDouble(longitudeString);
-                            } catch (NumberFormatException e) {
-                                Log.e(TAG, "Error parsing longitude: " + longitudeString, e);
-                                // Handle the error (e.g., set a default value, skip this ad)
-                                continue; // Skip to the next ad if longitude is invalid
+                            if (modelHostel.getCategory().equals(selectedCategory)) {
+                                if (distance <= MAX_DISTANCE_TO_LOAD_ADS_KM) {
+                                    hostelArrayList.add(modelHostel);
+                                }
                             }
-                        } else {
-                            Log.w(TAG, "Longitude is null or empty");
-                            continue;
                         }
-
-                        modelHostel.setLatitude(latitude);
-                        modelHostel.setLongitude(longitude);
-
-
-                        modelHostel.setHostelName(hostelName);
-                        modelHostel.setHostelAddress(hostelAddress);
-                        modelHostel.setRent(rent);
-                        modelHostel.setDescriptionEt(description);
-
-                        hostelArrayList.add(new ModelHostel(hostelName, hostelAddress, rent, description));
-
-
-                        // Now 'latitude' and 'longitude' are double values
-
-                        double distance = calculateDistanceKm(latitude, longitude); // Use the parsed double values
-                        Log.d(TAG, "onDataChange: distance: " + distance);
-
-                        if (distance <= MAX_DISTANCE_TO_LOAD_ADS_KM) {
-                            hostelArrayList.add(modelHostel);
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, "Error processing data snapshot: " + ds.getKey(), e);
                     }
                 }
-
                 adapterHostel = new AdapterHostel(mcontext, hostelArrayList);
                 binding.servicesRv.setAdapter(adapterHostel);
                 adapterHostel.notifyDataSetChanged(); // Notify adapter of changes

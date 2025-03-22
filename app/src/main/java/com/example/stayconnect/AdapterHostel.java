@@ -50,6 +50,7 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
         }else{
             this.hostelArrayList = hostelArrayList;
         }
+        this.filterList = hostelArrayList;
 
         firebaseAuth = FirebaseAuth.getInstance();
     }
@@ -67,29 +68,25 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
 
         ModelHostel modelHostel = hostelArrayList.get(position);
 
-        if (modelHostel != null && modelHostel.getId() != null) { // Check if hostel and hostel.getId() are not null
-            Log.d("AdapterHostel", "Hostel ID: " + modelHostel.getId()); // Log the ID
-            checkIsFavorite(modelHostel, holder);
-        } else {
-            Log.e("AdapterHostel", "Error: Hostel or Hostel ID is null at position " + position);
-        }
-
         String hostelName = modelHostel.getHostelName();
         String hostelAddress = modelHostel.getHostelAddress();
         String descriptionEt = modelHostel.getDescriptionEt();
         String rent = modelHostel.getRent();
+        String hostelId = modelHostel.getId();
 
 //        loadHostelFirstImage(modelHostel, holder);
 
-//        if(firebaseAuth.getCurrentUser() != null){
-//            checkIsFavorite(modelHostel, holder);
-//        }
+        if(firebaseAuth.getCurrentUser() != null){
+            checkIsFavorite(modelHostel, holder);
+        }
 
 
         holder.titleTv.setText(hostelName);
         holder.descriptionTv.setText(descriptionEt);
         holder.priceTv.setText(rent);
         holder.addressTv.setText(hostelAddress);
+
+
 
 
         holder.favBtn.setOnClickListener(new View.OnClickListener() {
@@ -99,16 +96,22 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
                 boolean favorite = modelHostel.isFavorite();
                 if(favorite){
 
-                    Utils.removeFromFavorite(context, modelHostel.getId());
+                    Utils.removeFromFavorite(context, hostelId);
                 }else{
 
-                    Utils.addToFavorite(context, modelHostel.getId());
+                    Utils.addToFavorite(context, hostelId);
                 }
             }
         });
     }
 
+    @Override
+    public int getItemCount() {
+        return hostelArrayList.size();
+    }
+
     private void checkIsFavorite(ModelHostel modelHostel, HolderHostel holder) {
+
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
         ref.child(firebaseAuth.getUid()).child("Favorites").child(modelHostel.getId())
@@ -168,10 +171,6 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
                 });
     }
 
-    @Override
-    public int getItemCount() {
-        return (hostelArrayList != null) ? hostelArrayList.size() : 0;
-    }
 
     @Override
     public Filter getFilter() {

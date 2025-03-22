@@ -27,7 +27,11 @@ public class FilterService extends Filter {
             ArrayList<ModelHostel> filteredModels = new ArrayList<>();
             for(int i = 0; i<filterList.size(); i++){
 
-                filteredModels.add(filterList.get(i));
+                if(filterList.get(i).getCategory().toUpperCase().contains(constraint) ||
+                        filterList.get(i).getHostelName().toUpperCase().contains(constraint)
+                ){
+                    filteredModels.add(filterList.get(i));
+                }
             }
 
             results.count = filteredModels.size();

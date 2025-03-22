@@ -9,6 +9,7 @@ public class ModelHostel {
     String roomCapacity;
     String rent;
     String hostelName;
+    String category;
     String hostelAddress;
     String ownerContactNumber;
     String descriptionEt;
@@ -21,16 +22,11 @@ public class ModelHostel {
 
     }
 
-    public ModelHostel(String hostelName, String hostelAddress, String rent, String descriptionEt){
-        this.hostelName = hostelName;
-        this.hostelAddress = hostelAddress;
-        this.rent = rent ;
-        this.descriptionEt = descriptionEt;
-    }
 
-    public ModelHostel(String id, String uid, String noOfRooms, String roomType, String roomCapacity, String rent, String hostelName, String hostelAddress, String ownerContactNumber, String descriptionEt, long timeStamp, double latitude, double longitude, boolean favorite) {
+    public ModelHostel(String id, String category, String uid, String noOfRooms, String roomType, String roomCapacity, String rent, String hostelName, String hostelAddress, String ownerContactNumber, String descriptionEt, long timeStamp, double latitude, double longitude, boolean favorite) {
         this.id = id;
         this.uid = uid;
+        this.category = category;
         this.noOfRooms = noOfRooms;
         this.roomType = roomType;
         this.roomCapacity = roomCapacity;
@@ -59,6 +55,14 @@ public class ModelHostel {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getNoOfRooms() {

@@ -61,9 +61,9 @@ public class FavFragment extends Fragment {
 
         FragmentManager fragmentManager = getChildFragmentManager();
         myTabsViewPagerAdapter = new MyTabsViewPagerAdapter(fragmentManager, getLifecycle());
-        binding.viewPager.setAdapter(myTabsViewPagerAdapter);
-
-
+//        binding.viewPager.setAdapter(myTabsViewPagerAdapter);
+//
+//
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -81,7 +81,7 @@ public class FavFragment extends Fragment {
 
             }
         });
-
+//
         binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -102,7 +102,7 @@ public class FavFragment extends Fragment {
         @Override
         public Fragment createFragment(int position) {
 
-            if(position == 0){
+            if(position == 1){
                 return new FavFragment();
             }else{
                 return new FavFragment();
@@ -113,5 +113,7 @@ public class FavFragment extends Fragment {
         public int getItemCount() {
             return 2;
         }
+
+
     }
 }

@@ -110,11 +110,11 @@ public class MyAdsFavFragment extends Fragment {
 
                         for(DataSnapshot ds : snapshot.getChildren()){
 
-                            String hostelId = ""+ ds.child("adId").getValue();
-                            Log.d(TAG, "onDataChange: hostleId:"+hostelId);
+                            String adId = ""+ ds.child("adId").getValue();
+                            Log.d(TAG, "onDataChange: hostleId:"+adId);
 
                             DatabaseReference hostelRef = FirebaseDatabase.getInstance().getReference("Ads");
-                            hostelRef.child(hostelId)
+                            hostelRef.child(adId)
                                     .addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -371,8 +371,8 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
     private String hostelAddress = "";
     private String ownerContactNumber = "";
     private String descriptionEt = "";
-    private double latitude = 0;
-    private double longitude = 0;
+    private double latitude = 0.0;
+    private double longitude = 0.0;
 
     private void validateData() {
 

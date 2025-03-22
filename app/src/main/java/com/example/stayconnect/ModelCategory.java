@@ -5,6 +5,9 @@ public class ModelCategory {
     String category;
     int icon;
 
+    public ModelCategory() {
+    }
+
     public ModelCategory(String category, int icon) {
         this.category = category;
         this.icon = icon;
