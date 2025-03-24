@@ -24,38 +24,49 @@
         android:theme="@style/Theme.StayConnect"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/my_map_api_key"/>
+
         <activity
-            android:name=".LocationPickerActivity"
+            android:name=".activities.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".AddServiceActivity"
+            android:name=".activities.DetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".DeleteAccountActivity"
+            android:name=".activities.LocationPickerActivity"
             android:exported="false" />
         <activity
-            android:name=".ChangePasswordActivity"
+            android:name=".activities.AddServiceActivity"
             android:exported="false" />
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".activities.DeleteAccountActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileEditActivity"
+            android:name=".activities.ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginPhoneActivity"
+            android:name=".activities.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterEmailActivity"
+            android:name=".activities.ProfileEditActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginEmailActivity"
+            android:name=".activities.LoginPhoneActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginOptionActivity"
+            android:name=".activities.RegisterEmailActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.LoginEmailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.LoginOptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

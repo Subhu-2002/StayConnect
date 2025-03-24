@@ -1,7 +1,9 @@
 package com.example.stayconnect;
 
 import android.widget.Filter;
-import android.widget.Filterable;
+
+import com.example.stayconnect.adapters.AdapterHostel;
+import com.example.stayconnect.models.ModelHostel;
 
 import java.util.ArrayList;
 

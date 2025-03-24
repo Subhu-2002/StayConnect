@@ -1,5 +1,6 @@
 [versions]
 agp = "8.7.0"
+appcompatVersion = "1.6.1"
 ccp = "2.7.0"
 glide = "4.16.0"
 junit = "4.13.2"
@@ -22,6 +23,7 @@ places = "4.1.0"
 playServicesLocation = "21.3.0"
 
 [libraries]
+appcompat-v161 = { module = "androidx.appcompat:appcompat", version.ref = "appcompatVersion" }
 ccp = { module = "com.hbb20:ccp", version.ref = "ccp" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

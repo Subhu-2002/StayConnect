@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddServiceActivity">
+    tools:context=".activities.AddServiceActivity">
 
     <RelativeLayout
         android:id="@+id/toolbarRl"
@@ -289,6 +289,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
+                    android:inputType="none"
                     android:background="@drawable/input_box"
                     android:hint="Hostel Address"
                     android:padding="12dp" />
