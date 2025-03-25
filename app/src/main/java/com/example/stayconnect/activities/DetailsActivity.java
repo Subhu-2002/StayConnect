@@ -10,19 +10,14 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.bumptech.glide.Glide;
 import com.example.stayconnect.R;
 import com.example.stayconnect.Utils;
 import com.example.stayconnect.adapters.AdapterImageSlider;
 import com.example.stayconnect.databinding.ActivityDetailsBinding;
-import com.example.stayconnect.models.ModelHostel;
+import com.example.stayconnect.models.ModelAd;
 import com.example.stayconnect.models.ModelImageSlider;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,10 +29,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -54,6 +46,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private String ownerUid = "";
     private String ownerPhone = "";
+    private String ownerName = "";
 
     private boolean favorite = false;
 
@@ -213,16 +206,17 @@ public class DetailsActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         try{
 
-                            ModelHostel modelHostel = snapshot.getValue(ModelHostel.class);
+                            ModelAd modelAd = snapshot.getValue(ModelAd.class);
 
-                            ownerUid = modelHostel.getUid();
-                            ownerPhone = modelHostel.getOwnerContactNumber();
-                            String title = modelHostel.getHostelName();
-                            String address = modelHostel.getHostelAddress();
-                            String price = modelHostel.getRent();
-                            String description = modelHostel.getDescription();
-                            adLatitude = modelHostel.getLatitude();
-                            adLongitude = modelHostel.getLongitude();
+                            ownerUid = modelAd.getUid();
+                            ownerPhone = modelAd.getOwnerContactNumber();
+                            ownerName = modelAd.getOwnerName();
+                            String title = modelAd.getHostelName();
+                            String address = modelAd.getHostelAddress();
+                            String price = modelAd.getRent();
+                            String description = modelAd.getDescription();
+                            adLatitude = modelAd.getLatitude();
+                            adLongitude = modelAd.getLongitude();
 
                             if(ownerUid.equals(firebaseAuth.getUid())){
                                 binding.toolbarEditBtn.setVisibility(View.VISIBLE);
@@ -281,7 +275,8 @@ public class DetailsActivity extends AppCompatActivity {
 
                         ownerPhone = phoneCode +""+ phoneNumber;
 
-                        binding.ownerNameTv.setText(name);
+
+                        binding.ownerNameTv.setText(ownerName);
                         binding.memberSinceTv.setText(""+formattedDate);
 //                        try{
 //                            Glide.with(DetailsActivity.this)

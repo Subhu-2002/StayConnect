@@ -121,9 +121,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
 
                                             }
                                         });
-
-                        progressDialog.dismiss();
-                        Toast.makeText(DeleteAccountActivity.this, "Account Deleted", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

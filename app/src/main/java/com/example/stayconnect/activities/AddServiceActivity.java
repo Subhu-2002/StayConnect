@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -32,6 +33,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.stayconnect.R;
+import com.example.stayconnect.Utils;
 import com.example.stayconnect.adapters.AdapterImagesPicked;
 import com.example.stayconnect.databinding.ActivityAddServiceBinding;
 import com.example.stayconnect.models.ModelImagePicked;
@@ -103,6 +106,10 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
         firebaseAuth = FirebaseAuth.getInstance();
 
 
+        ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(this, R.layout.row_category_act, Utils.categories);
+        binding.categoryAct.setAdapter(adapterCategories);
+
+
         Intent intent = getIntent();
         isEditMode = intent.getBooleanExtra("isEditMode", false);
         Log.d(TAG, "onCreate: isEditMode: "+isEditMode);
@@ -114,11 +121,11 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
             loadAdDetails();
 
             binding.toolbarTitleTv.setText("Update Ad");
-            binding.addDetailsBtn.setText("Update Ad");
+            binding.postAdBtn.setText("Update Ad");
         }else{
 
             binding.toolbarTitleTv.setText("Create Ad");
-            binding.addDetailsBtn.setText("Create Ad");
+            binding.postAdBtn.setText("Create Ad");
         }
 
         binding.toolbarBackBtn.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +147,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
         });
 
 
-        binding.getLocationTv.setOnClickListener(new View.OnClickListener() {
+        binding.locationAct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddServiceActivity.this, LocationPickerActivity.class);
@@ -161,7 +168,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
 //            }
 //        });
 
-        binding.addDetailsBtn.setOnClickListener(new View.OnClickListener() {
+        binding.postAdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateData();
@@ -190,7 +197,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
                             Log.d(TAG, "onActivityResult: Longitude : " + longitude);
                             Log.d(TAG, "onActivityResult: Address : " + hostelAddress);
 
-                            binding.hostelAddress.setText(hostelAddress);
+                            binding.locationAct.setText(hostelAddress);
 
                         }else{
                             Log.d(TAG, "onActivityResult: Cancelled");
@@ -374,9 +381,8 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
     );
 
 
-    private String noOfRooms = "";
-    private String roomType = "";
-    private String roomCapacity = "";
+    private String ownerName ="";
+    private String category = "";
     private String rent = "";
     private String hostelName = "";
     private String hostelAddress = "";
@@ -387,45 +393,40 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
 
     private void validateData() {
 
-        noOfRooms = binding.noOfRooms.getText().toString().trim();
-        roomType = binding.roomType.getText().toString().trim();
-        roomCapacity = binding.roomCapacity.getText().toString().trim();
-        rent = binding.rent.getText().toString().trim();
-        hostelName = binding.hostelName.getText().toString().trim();
-        hostelAddress = binding.hostelAddress.getText().toString().trim();
-        ownerContactNumber = binding.ownerContactNumber.getText().toString().trim();
+        ownerName = binding.ownerNameEt.getText().toString().trim();
+        rent = binding.rentEt.getText().toString().trim();
+        category = binding.categoryAct.getText().toString().trim();
+        hostelName = binding.titleEt.getText().toString().trim();
+        hostelAddress = binding.locationAct.getText().toString().trim();
+        ownerContactNumber = binding.contactEt.getText().toString().trim();
         descriptionEt = binding.descriptionEt.getText().toString().trim();
 
-        if (noOfRooms.isEmpty()) {
-            binding.noOfRooms.setError("Enter No. of Rooms");
-            binding.noOfRooms.requestFocus();
+        if (ownerName.isEmpty()) {
+            binding.ownerNameEt.setError("Enter Owner Name");
+            binding.ownerNameEt.requestFocus();
 
-        } else if (roomType.isEmpty()) {
-            binding.roomType.setError("Enter No. of Rooms");
-            binding.roomType.requestFocus();
-
-        } else if (roomCapacity.isEmpty()) {
-            binding.roomCapacity.setError("Enter No. of Rooms");
-            binding.roomCapacity.requestFocus();
+        } else if (category.isEmpty()) {
+            binding.categoryAct.setError("Enter No. of Rooms");
+            binding.categoryAct.requestFocus();
 
         } else if (rent.isEmpty()) {
-            binding.rent.setError("Enter No. of Rooms");
-            binding.rent.requestFocus();
+            binding.rentEt.setError("Enter Price");
+            binding.rentEt.requestFocus();
 
         } else if (hostelName.isEmpty()) {
-            binding.hostelName.setError("Enter No. of Rooms");
-            binding.hostelName.requestFocus();
+            binding.titleEt.setError("Enter Mess/Hostel Name");
+            binding.titleEt.requestFocus();
 
         } else if (hostelAddress.isEmpty()) {
-            binding.hostelAddress.setError("Enter No. of Rooms");
-            binding.hostelAddress.requestFocus();
+            binding.locationAct.setError("Click Here For Location");
+            binding.locationAct.requestFocus();
 
         } else if (ownerContactNumber.isEmpty()) {
-            binding.ownerContactNumber.setError("Enter No. of Rooms");
-            binding.ownerContactNumber.requestFocus();
+            binding.contactEt.setError("Enter Mobile Number");
+            binding.contactEt.requestFocus();
 
         } else if (descriptionEt.isEmpty()) {
-            binding.descriptionEt.setError("Enter No. of Rooms");
+            binding.descriptionEt.setError("Enter description");
             binding.descriptionEt.requestFocus();
         }else if(imagePickedArrayList.isEmpty()){
             Toast.makeText(this, "Pick At-Least one image", Toast.LENGTH_SHORT).show();
@@ -449,13 +450,12 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
         progressDialog.show();
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("noOfRooms", ""+noOfRooms);
-        hashMap.put("roomType", ""+roomType);
-        hashMap.put("roomCapacity", ""+roomCapacity);
+        hashMap.put("category", ""+category);
         hashMap.put("rent", ""+rent);
-        hashMap.put("hostelName", ""+hostelName);
-        hashMap.put("hostelAddress", ""+hostelAddress);
+        hashMap.put("adName", ""+hostelName);
+        hashMap.put("adAddress", ""+hostelAddress);
         hashMap.put("ownerContactNumber", ""+ownerContactNumber);
+        hashMap.put("ownerName", ""+ownerName);
         hashMap.put("description", ""+descriptionEt);
         hashMap.put("latitude", latitude);
         hashMap.put("longitude", longitude);
@@ -493,9 +493,8 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("id", ""+keyId);
         hashMap.put("uid", ""+firebaseAuth.getUid());
-        hashMap.put("noOfRooms", ""+noOfRooms);
-        hashMap.put("roomType", ""+roomType);
-        hashMap.put("roomCapacity", ""+roomCapacity);
+        hashMap.put("category", ""+category);
+        hashMap.put("ownerName", ""+ownerName);
         hashMap.put("rent", ""+rent);
         hashMap.put("hostelName", ""+hostelName);
         hashMap.put("hostelAddress", ""+hostelAddress);
@@ -598,7 +597,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
             latitude = location.getLatitude();
             longitude = location.getLongitude();
 
-            binding.hostelAddress.setText(address);
+            binding.locationAct.setText(address);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -634,27 +633,23 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String noOfRooms = ""+ snapshot.child("noOfRooms").getValue();
-                        String roomType = ""+ snapshot.child("roomType").getValue();
                         String rent = ""+ snapshot.child("rent").getValue();
-                        String roomCapacity = ""+ snapshot.child("roomCapacity").getValue();
                         String hostelName = ""+ snapshot.child("hostelName").getValue();
                         String hostelAddress = ""+ snapshot.child("hostelAddress").getValue();
                         String ownerContactNumber = ""+ snapshot.child("ownerContactNumber").getValue();
+                        String ownerName = ""+ snapshot.child("ownerName").getValue();
                         String description = ""+ snapshot.child("description").getValue();
+                        String category = ""+ snapshot.child("category").getValue();
                         String latitude = ""+ snapshot.child("latitude").getValue();
                         String longitude = ""+ snapshot.child("longitude").getValue();
 
-                        binding.noOfRooms.setText(noOfRooms);
-                        binding.roomType.setText(roomType);
-                        binding.rent.setText(rent);
-                        binding.roomCapacity.setText(roomCapacity);
-                        binding.hostelName.setText(hostelName);
-                        binding.hostelAddress.setText(hostelAddress);
-                        binding.ownerContactNumber.setText(ownerContactNumber);
+                        binding.ownerNameEt.setText(ownerName);
+                        binding.rentEt.setText(rent);
+                        binding.titleEt.setText(hostelName);
+                        binding.locationAct.setText(hostelAddress);
+                        binding.contactEt.setText(ownerContactNumber);
                         binding.descriptionEt.setText(description);
-                        binding.noOfRooms.setText(noOfRooms);
-                        binding.noOfRooms.setText(noOfRooms);
+                        binding.categoryAct.setText(category);
 
                     }
 

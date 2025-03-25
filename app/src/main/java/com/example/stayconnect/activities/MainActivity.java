@@ -1,13 +1,21 @@
 package com.example.stayconnect.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.stayconnect.R;
@@ -16,14 +24,24 @@ import com.example.stayconnect.fragments.ChatsFragment;
 import com.example.stayconnect.fragments.FavFragment;
 import com.example.stayconnect.fragments.HomeFragment;
 import com.example.stayconnect.fragments.ProfileFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
     private FirebaseAuth firebaseAuth;
+
+    public static final String TAG = "MAIN_TAG";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if(firebaseAuth.getCurrentUser() == null){
+        if (firebaseAuth.getCurrentUser() == null) {
             startLoginOptions();
+        } else {
+            updateFCMToken();
+            askNotificationPermission();
         }
 
         showHomeFragment();
@@ -46,50 +67,50 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 int itemId = item.getItemId();
-                if(itemId == R.id.menu_home){
-                    
+                if (itemId == R.id.menu_home) {
+
                     showHomeFragment();
 
                     return true;
-                }else if(itemId == R.id.menu_chats){
+                } else if (itemId == R.id.menu_chats) {
 
-                    if(firebaseAuth.getCurrentUser() == null){
+                    if (firebaseAuth.getCurrentUser() == null) {
                         Toast.makeText(MainActivity.this, "Login Required...", Toast.LENGTH_SHORT).show();
                         startLoginOptions();
 
-                        return false; 
-                    }else{
+                        return false;
+                    } else {
                         showChatsFragment();
 
                         return true;
                     }
-                }else if(itemId == R.id.menu_fav){
+                } else if (itemId == R.id.menu_fav) {
 
 
-                    if(firebaseAuth.getCurrentUser() == null){
+                    if (firebaseAuth.getCurrentUser() == null) {
                         Toast.makeText(MainActivity.this, "Login Required...", Toast.LENGTH_SHORT).show();
                         startLoginOptions();
 
                         return false;
-                    }else{
+                    } else {
                         showFavFragment();
 
                         return true;
                     }
-                }else if(itemId == R.id.menu_profile){
+                } else if (itemId == R.id.menu_profile) {
 
 
-                    if(firebaseAuth.getCurrentUser() == null){
+                    if (firebaseAuth.getCurrentUser() == null) {
                         Toast.makeText(MainActivity.this, "Login Required...", Toast.LENGTH_SHORT).show();
                         startLoginOptions();
 
                         return false;
-                    }else{
+                    } else {
                         showProfileFragment();
 
                         return true;
                     }
-                }else{
+                } else {
 
                     return false;
                 }
@@ -146,4 +167,65 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(binding.fragmentsFl.getId(), fragment, "Home Fragment");
         fragmentTransaction.commit();
     }
+
+
+    private void updateFCMToken() {
+
+        String myUid = "" + firebaseAuth.getUid();
+        Log.d(TAG, "updateFCMToken: myUid: " + myUid);
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnSuccessListener(new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String token) {
+                        Log.d(TAG, "onSuccess: token: " + token);
+
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("fcmToken", token);
+
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                        ref.child(myUid)
+                                .updateChildren(hashMap)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.d(TAG, "onSuccess: Token updated...");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.e(TAG, "onFailure: ", e);
+                                    }
+                                });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, "onFailure: ", e);
+                        ;
+                    }
+                });
+    }
+
+    private void askNotificationPermission() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_DENIED) {
+                requestNotificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        }
+    }
+
+    private ActivityResultLauncher<String> requestNotificationPermission = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            new ActivityResultCallback<Boolean>() {
+                @Override
+                public void onActivityResult(Boolean isGranted) {
+                    Log.d(TAG, "onActivityResult: Notification Permission State : " + isGranted);
+                }
+            }
+    );
 }

@@ -1,13 +1,11 @@
 package com.example.stayconnect.models;
 
-public class ModelHostel {
+public class ModelAd {
 
     String id;
     String uid;
-    String noOfRooms;
-    String roomType;
-    String roomCapacity;
     String rent;
+    String ownerName;
     String hostelName;
     String category;
     String hostelAddress;
@@ -18,28 +16,27 @@ public class ModelHostel {
     double longitude;
     boolean favorite;
 
-    public ModelHostel() {
+    public ModelAd() {
 
     }
 
 
-    public ModelHostel(String id, String category, String uid, String noOfRooms, String roomType, String roomCapacity, String rent, String hostelName, String hostelAddress, String ownerContactNumber, String description, long timeStamp, double latitude, double longitude, boolean favorite) {
+    public ModelAd(String id, boolean favorite, double longitude, double latitude, long timeStamp, String description, String ownerContactNumber, String hostelAddress, String category, String hostelName, String ownerName, String rent, String uid) {
         this.id = id;
-        this.uid = uid;
-        this.category = category;
-        this.noOfRooms = noOfRooms;
-        this.roomType = roomType;
-        this.roomCapacity = roomCapacity;
-        this.rent = rent;
-        this.hostelName = hostelName;
-        this.hostelAddress = hostelAddress;
-        this.ownerContactNumber = ownerContactNumber;
-        this.description = description;
-        this.timeStamp = timeStamp;
-        this.latitude = latitude;
-        this.longitude = longitude;
         this.favorite = favorite;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.timeStamp = timeStamp;
+        this.description = description;
+        this.ownerContactNumber = ownerContactNumber;
+        this.hostelAddress = hostelAddress;
+        this.category = category;
+        this.hostelName = hostelName;
+        this.ownerName = ownerName;
+        this.rent = rent;
+        this.uid = uid;
     }
+
 
     public String getId() {
         return id;
@@ -57,38 +54,6 @@ public class ModelHostel {
         this.uid = uid;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getNoOfRooms() {
-        return noOfRooms;
-    }
-
-    public void setNoOfRooms(String noOfRooms) {
-        this.noOfRooms = noOfRooms;
-    }
-
-    public String getRoomType() {
-        return roomType;
-    }
-
-    public void setRoomType(String roomType) {
-        this.roomType = roomType;
-    }
-
-    public String getRoomCapacity() {
-        return roomCapacity;
-    }
-
-    public void setRoomCapacity(String roomCapacity) {
-        this.roomCapacity = roomCapacity;
-    }
-
     public String getRent() {
         return rent;
     }
@@ -97,12 +62,28 @@ public class ModelHostel {
         this.rent = rent;
     }
 
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
     public String getHostelName() {
         return hostelName;
     }
 
     public void setHostelName(String hostelName) {
         this.hostelName = hostelName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getHostelAddress() {
@@ -125,8 +106,8 @@ public class ModelHostel {
         return description;
     }
 
-    public void setDescription(String descriptionEt) {
-        this.description = descriptionEt;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public long getTimeStamp() {

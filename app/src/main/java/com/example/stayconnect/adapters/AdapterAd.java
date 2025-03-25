@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.stayconnect.FilterService;
 import com.example.stayconnect.activities.DetailsActivity;
-import com.example.stayconnect.models.ModelHostel;
+import com.example.stayconnect.models.ModelAd;
 import com.example.stayconnect.R;
 import com.example.stayconnect.Utils;
 import com.example.stayconnect.databinding.RowServicesBinding;
@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHostel> implements Filterable {
+public class AdapterAd extends RecyclerView.Adapter<AdapterAd.HolderHostel> implements Filterable {
 
     private RowServicesBinding binding;
 
@@ -39,8 +39,8 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
 
     private Context context;
 
-    public ArrayList<ModelHostel> hostelArrayList;
-    private ArrayList<ModelHostel> filterList;
+    public ArrayList<ModelAd> hostelArrayList;
+    private ArrayList<ModelAd> filterList;
 
     private FilterService filter;
 
@@ -48,7 +48,7 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
 
 
 
-    public AdapterHostel(Context context, ArrayList<ModelHostel> hostelArrayList) {
+    public AdapterAd(Context context, ArrayList<ModelAd> hostelArrayList) {
         this.context = context;
 
         if(hostelArrayList == null){
@@ -72,18 +72,18 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
     @Override
     public void onBindViewHolder(@NonNull HolderHostel holder, int position) {
 
-        ModelHostel modelHostel = hostelArrayList.get(position);
+        ModelAd modelAd = hostelArrayList.get(position);
 
-        String hostelName = modelHostel.getHostelName();
-        String hostelAddress = modelHostel.getHostelAddress();
-        String description = modelHostel.getDescription();
-        String rent = modelHostel.getRent();
-        String hostelId = modelHostel.getId();
+        String hostelName = modelAd.getHostelName();
+        String hostelAddress = modelAd.getHostelAddress();
+        String description = modelAd.getDescription();
+        String rent = modelAd.getRent();
+        String hostelId = modelAd.getId();
 
-//        loadHostelFirstImage(modelHostel, holder);
+//        loadHostelFirstImage(modelAd, holder);
 
         if(firebaseAuth.getCurrentUser() != null){
-            checkIsFavorite(modelHostel, holder);
+            checkIsFavorite(modelAd, holder);
         }
 
 
@@ -109,7 +109,7 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
             @Override
             public void onClick(View v) {
 
-                boolean favorite = modelHostel.isFavorite();
+                boolean favorite = modelAd.isFavorite();
                 if(favorite){
 
                     Utils.removeFromFavorite(context, hostelId);
@@ -126,18 +126,18 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
         return hostelArrayList.size();
     }
 
-    private void checkIsFavorite(ModelHostel modelHostel, HolderHostel holder) {
+    private void checkIsFavorite(ModelAd modelAd, HolderHostel holder) {
 
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-        ref.child(firebaseAuth.getUid()).child("Favorites").child(modelHostel.getId())
+        ref.child(firebaseAuth.getUid()).child("Favorites").child(modelAd.getId())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                         boolean favorite = snapshot.exists();
 
-                        modelHostel.setFavorite(favorite);
+                        modelAd.setFavorite(favorite);
 
                         if(favorite){
                             holder.favBtn.setImageResource(R.drawable.ic_fav_yes);
@@ -154,10 +154,10 @@ public class AdapterHostel extends RecyclerView.Adapter<AdapterHostel.HolderHost
                 });
     }
 
-    private void loadHostelFirstImage(ModelHostel modelHostel, HolderHostel holder) {
+    private void loadHostelFirstImage(ModelAd modelAd, HolderHostel holder) {
         Log.d(TAG, "loadHostelFirstImage: ");
 
-        String hostelId = modelHostel.getId();
+        String hostelId = modelAd.getId();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.child(hostelId).child("Images").limitToFirst(1)

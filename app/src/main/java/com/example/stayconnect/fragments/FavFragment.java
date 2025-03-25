@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,9 +106,9 @@ public class FavFragment extends Fragment {
         public Fragment createFragment(int position) {
 
             if(position == 0){
-                return new FavFragment();
+                return new MyAdsAdsFragment();
             }else{
-                return new FavFragment();
+                return new MyAdsFavFragment();
             }
         }
 

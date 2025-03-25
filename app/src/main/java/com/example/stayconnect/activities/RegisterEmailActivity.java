@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.stayconnect.Utils;
 import com.example.stayconnect.databinding.ActivityRegisterEmailBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -119,7 +120,10 @@ public class RegisterEmailActivity extends AppCompatActivity {
 
         progressDialog.setMessage("Saving User Info");
 
-        long timeStamp = System.currentTimeMillis();
+        long timestamp = System.currentTimeMillis();
+        Log.d(TAG, "updateUserInfo: timestamp: "+timestamp);
+        String formatteddate = Utils.formatTimestampDate(timestamp);
+        Log.d(TAG, "updateUserInfo: formattedDate: "+formatteddate);
         String registerUserEmail = firebaseAuth.getCurrentUser().getEmail();
         String registerUserUid = firebaseAuth.getUid();
 
@@ -130,7 +134,7 @@ public class RegisterEmailActivity extends AppCompatActivity {
         hashMap.put("dob", "");
         hashMap.put("userType", "Email");
         hashMap.put("typingTo", "");
-        hashMap.put("timeStamp", timeStamp);
+        hashMap.put("timeStamp", timestamp);
         hashMap.put("onlineStatu", true);
         hashMap.put("email", registerUserEmail);
         hashMap.put("uid", registerUserUid);

@@ -81,6 +81,11 @@
                 android:id="@+id/imageSliderVp"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"/>
+            <ImageView
+                android:id="@+id/brokenImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/ic_broken_image_white"/>
 
             <TextView
                 android:id="@+id/priceSymbolTv"
@@ -100,71 +105,118 @@
                 android:layout_toEndOf="@id/priceSymbolTv"
                 android:layout_below="@+id/imageSliderVp"/>
 
-            <TextView
-                android:id="@+id/titleLabelTv"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/titleCv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/priceSymbolTv"
-                android:layout_marginTop="4dp"
-                android:text="Title"/>
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="10dp">
 
-            <TextView
-                android:id="@+id/titleTv"
-                style="@style/TextAppearance.MaterialComponents.Body2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/titleLabelTv"
-                tools:text="@tools:sample/lorem[5]"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/descriptionLabelTv"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/titleTv"
-                android:layout_marginTop="4dp"
-                android:text="Description"/>
+                    <TextView
+                        android:id="@+id/titleLabelTv"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Title"/>
 
-            <TextView
-                android:id="@+id/descriptionTv"
-                style="@style/TextAppearance.MaterialComponents.Body2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/descriptionLabelTv"
-                tools:text="@tools:sample/lorem[20]"/>
+                    <TextView
+                        android:id="@+id/titleTv"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/titleLabelTv"
+                        tools:text="@tools:sample/lorem[5]"/>
 
-            <TextView
-                android:id="@+id/addressLabelTv"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/descriptionTv"
-                android:layout_marginTop="4dp"
-                android:text="Address"/>
+                </RelativeLayout>
 
-            <TextView
-                android:id="@+id/addressTv"
-                style="@style/TextAppearance.MaterialComponents.Body2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/addressLabelTv"
-                tools:text="@tools:sample/lorem[5]"/>
+            </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/receiptProfileLabelTv"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/descriptionCv"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/addressTv"
-                android:layout_marginTop="4dp"
-                android:text="Seller Description"/>
+                android:layout_below="@id/titleCv"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/descriptionLabelTv"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Description" />
+
+                    <TextView
+                        android:id="@+id/descriptionTv"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/descriptionLabelTv"
+                        tools:text="@tools:sample/lorem[20]" />
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/addressCv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/descriptionCv"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/addressLabelTv"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Address"/>
+
+                    <TextView
+                        android:id="@+id/addressTv"
+                        style="@style/TextAppearance.MaterialComponents.Body2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/addressLabelTv"
+                        tools:text="@tools:sample/lorem[5]"/>
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+
+
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/ownerProfileCv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/receiptProfileLabelTv"
+                android:layout_below="@id/addressCv"
                 app:cardCornerRadius="10dp"
                 app:cardUseCompatPadding="true"
                 app:contentPadding="10dp">
@@ -173,11 +225,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <TextView
+                        android:id="@+id/receiptProfileLabelTv"
+                        style="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Seller Description"/>
+
                     <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/ownerProfileIv"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginEnd="10dp"
+                        android:layout_below="@+id/receiptProfileLabelTv"
                         app:shapeAppearanceOverlay="@style/ImageStyle_Circle"
                         android:background="@color/colorPurple01"
                         android:src="@drawable/ic_person_gray"/>
@@ -187,6 +249,7 @@
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/receiptProfileLabelTv"
                         android:layout_toEndOf="@+id/ownerProfileIv"
                         android:text="Full Name"/>
 

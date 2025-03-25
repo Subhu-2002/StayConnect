@@ -64,6 +64,8 @@ dependencies {
     // Image Processing
     implementation (libs.glide)
 
+    implementation(libs.firebase.messaging)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

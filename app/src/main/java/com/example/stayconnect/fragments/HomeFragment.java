@@ -29,10 +29,10 @@ import com.example.stayconnect.RvListenerCategory;
 import com.example.stayconnect.Utils;
 import com.example.stayconnect.activities.LocationPickerActivity;
 import com.example.stayconnect.adapters.AdapterCategory;
-import com.example.stayconnect.adapters.AdapterHostel;
+import com.example.stayconnect.adapters.AdapterAd;
 import com.example.stayconnect.databinding.FragmentHomeBinding;
+import com.example.stayconnect.models.ModelAd;
 import com.example.stayconnect.models.ModelCategory;
-import com.example.stayconnect.models.ModelHostel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,9 +51,9 @@ public class HomeFragment extends Fragment {
 
     private Context mcontext;
 
-    private ArrayList<ModelHostel> hostelArrayList;
+    private ArrayList<ModelAd> hostelArrayList;
 
-    private AdapterHostel adapterHostel;
+    private AdapterAd adapterAd;
 
     private SharedPreferences locationSp;
 
@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment {
                 try{
                     String query = s.toString();
 
-                    adapterHostel.getFilter().filter(query);
+                    adapterAd.getFilter().filter(query);
 
                 } catch (Exception e) {
                     Log.e(TAG, "onTextChanged: ", e);
@@ -210,25 +210,25 @@ public class HomeFragment extends Fragment {
 
                 for (DataSnapshot ds : snapshot.getChildren()) {
 
-                    ModelHostel modelHostel = ds.getValue(ModelHostel.class);
+                    ModelAd modelAd = ds.getValue(ModelAd.class);
 
-                    double distance = calculateDistanceKm(modelHostel.getLatitude(), modelHostel.getLongitude());
+                    double distance = calculateDistanceKm(modelAd.getLatitude(), modelAd.getLongitude());
 
                     if(selectedCategory.equals("All")){
                         if (distance <= MAX_DISTANCE_TO_LOAD_ADS_KM) {
 
-                            hostelArrayList.add(modelHostel);
+                            hostelArrayList.add(modelAd);
                         }
                     }else{
-                        if(modelHostel.getCategory().equals(selectedCategory)){
-                            hostelArrayList.add(modelHostel);
+                        if(modelAd.getCategory().equals(selectedCategory)){
+                            hostelArrayList.add(modelAd);
                         }
                     }
 
                 }
-                adapterHostel = new AdapterHostel(mcontext, hostelArrayList);
-                binding.servicesRv.setAdapter(adapterHostel);
-                adapterHostel.notifyDataSetChanged(); // Notify adapter of changes
+                adapterAd = new AdapterAd(mcontext, hostelArrayList);
+                binding.servicesRv.setAdapter(adapterAd);
+                adapterAd.notifyDataSetChanged(); // Notify adapter of changes
             }
 
             @Override

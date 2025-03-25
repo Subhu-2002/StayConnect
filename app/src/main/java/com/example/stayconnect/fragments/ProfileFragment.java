@@ -142,7 +142,8 @@ public class ProfileFragment extends Fragment {
                         String phoneCode = "" + snapshot.child("phoneCode").getValue();
                         String phoneNumber = "" + snapshot.child("phoneNumber").getValue();
                         String profileImageUri = "" + snapshot.child("profileImageUri").getValue();
-                        String timestamp = "" + snapshot.child("timestamp").getValue();
+                        String timestamp = "" + snapshot.child("timeStamp").getValue();
+                        Log.d(TAG, "onDataChange: timeStamp: "+timestamp);
                         String userType = "" + snapshot.child("userType").getValue();
                         String name = "" + snapshot.child("name").getValue();
 

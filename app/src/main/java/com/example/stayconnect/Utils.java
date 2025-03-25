@@ -21,6 +21,8 @@ import java.util.Locale;
 
 public class Utils {
 
+    private static final String FCM_SEVER_KEY = "AIzaSyCP_rSKfpEuG_8Ak5tI-EyWBQGHtiHzCLk";
+
     public static final String[] categories = {
             "Hostel",
             "Mess"

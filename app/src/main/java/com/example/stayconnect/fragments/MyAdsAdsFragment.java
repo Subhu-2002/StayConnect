@@ -14,9 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.stayconnect.adapters.AdapterHostel;
+import com.example.stayconnect.adapters.AdapterAd;
 import com.example.stayconnect.databinding.FragmentMyAdsAdsBinding;
-import com.example.stayconnect.models.ModelHostel;
+import com.example.stayconnect.models.ModelAd;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,9 +37,9 @@ public class MyAdsAdsFragment extends Fragment {
 
     private FirebaseAuth firebaseAuth;
 
-    private ArrayList<ModelHostel> hostelArrayList;
+    private ArrayList<ModelAd> hostelArrayList;
 
-    private AdapterHostel adapterHostel;
+    private AdapterAd adapterAd;
 
 
     public MyAdsAdsFragment() {
@@ -79,7 +79,7 @@ public class MyAdsAdsFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try{
                     String query = s.toString();
-                    adapterHostel.getFilter().filter(query);
+                    adapterAd.getFilter().filter(query);
                 } catch (Exception e) {
                     Log.e(TAG, "onTextChanged: ", e);
                 }
@@ -109,15 +109,15 @@ public class MyAdsAdsFragment extends Fragment {
 
                             try{
 
-                                ModelHostel modelHostel = ds.getValue(ModelHostel.class);
-                                hostelArrayList.add(modelHostel);
+                                ModelAd modelAd = ds.getValue(ModelAd.class);
+                                hostelArrayList.add(modelAd);
 
                             }catch (Exception e){
                                 Log.e(TAG, "onDataChange: ", e);
                             }
                         }
-                        adapterHostel = new AdapterHostel(mContext, hostelArrayList);
-                        binding.adsRv.setAdapter(adapterHostel);
+                        adapterAd = new AdapterAd(mContext, hostelArrayList);
+                        binding.adsRv.setAdapter(adapterAd);
                     }
 
                     @Override
