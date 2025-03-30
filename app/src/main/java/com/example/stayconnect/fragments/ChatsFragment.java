@@ -15,10 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.stayconnect.R;
 import com.example.stayconnect.adapters.AdapterChats;
 import com.example.stayconnect.databinding.FragmentChatsBinding;
-import com.example.stayconnect.databinding.RowChatsBinding;
 import com.example.stayconnect.models.ModelChats;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 
@@ -76,7 +73,7 @@ public class ChatsFragment extends Fragment {
 
         myUid = firebaseAuth.getUid();
 
-        Log.d(TAG, "onViewCreated: myUid: "+myUid);
+        Log.d(TAG, "onViewCreated: myUid: " + myUid);
 
         loadChats();
 
@@ -88,7 +85,7 @@ public class ChatsFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                try{
+                try {
                     String query = s.toString();
                     adapterChats.getFilter().filter(query);
                 } catch (Exception e) {
@@ -113,12 +110,12 @@ public class ChatsFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 chatsArrayList.clear();
 
-                for(DataSnapshot ds: snapshot.getChildren()){
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     String chatKey = ds.getKey();
 
-                    Log.d(TAG, "onDataChange: chatKey: "+chatKey);
+                    Log.d(TAG, "onDataChange: chatKey: " + chatKey);
 
-                    if(chatKey.contains(myUid)){
+                    if (chatKey.contains(myUid)) {
                         Log.d(TAG, "onDataChange: Contains");
 
                         ModelChats modelChats = new ModelChats();
@@ -126,7 +123,7 @@ public class ChatsFragment extends Fragment {
 
 
                         chatsArrayList.add(modelChats);
-                    }else{
+                    } else {
                         Log.d(TAG, "onDataChange: Not Contains");
                     }
                 }
@@ -145,7 +142,7 @@ public class ChatsFragment extends Fragment {
         });
     }
 
-    private void sort(){
+    private void sort() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

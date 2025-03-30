@@ -52,7 +52,9 @@ dependencies {
     implementation(libs.firebase.crashlytics)
     implementation(libs.play.services.auth)
 
+    implementation ("com.cloudinary:cloudinary-android:3.0.2")
 
+    implementation ("com.squareup.picasso:picasso:2.8")
 
     implementation(libs.play.services.maps)
     implementation(libs.places)

@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.cloudinary.android.MediaManager;
 import com.example.stayconnect.FilterService;
 import com.example.stayconnect.activities.DetailsActivity;
 import com.example.stayconnect.models.ModelAd;
@@ -91,6 +92,40 @@ public class AdapterAd extends RecyclerView.Adapter<AdapterAd.HolderHostel> impl
         holder.descriptionTv.setText(description);
         holder.priceTv.setText(rent);
         holder.addressTv.setText(hostelAddress);
+
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Ads");
+        ref.child(modelAd.getId()).child("Images")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if (snapshot.exists()) {
+
+                            String publicId = snapshot.child("servicePicture1").getValue(String.class);
+
+                            if(publicId != null){
+                                String imageUrl = MediaManager.get().url().generate(publicId);
+
+                                try {
+                                    Glide.with(context)
+                                            .load(imageUrl)
+                                            .placeholder(R.drawable.ic_image_gray)
+                                            .into(holder.imageIv);
+
+                                } catch (Exception e) {
+                                    Log.e(TAG, "onDataChange: ", e);
+                                }
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
 
 

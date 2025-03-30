@@ -177,6 +177,7 @@ public class LoginOptionActivity extends AppCompatActivity {
         hashMap.put("phoneNumber", "");
         hashMap.put("dob", "");
         hashMap.put("userType", "Google");
+        hashMap.put("profileImageUri", "");
         hashMap.put("typingTo", "");
         hashMap.put("timeStamp", timeStamp);
         hashMap.put("onlineStatu", true);

@@ -81,11 +81,6 @@
                 android:id="@+id/imageSliderVp"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"/>
-            <ImageView
-                android:id="@+id/brokenImage"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/ic_broken_image_white"/>
 
             <TextView
                 android:id="@+id/priceSymbolTv"
@@ -239,6 +234,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginEnd="10dp"
+                        android:scaleType="centerCrop"
                         android:layout_below="@+id/receiptProfileLabelTv"
                         app:shapeAppearanceOverlay="@style/ImageStyle_Circle"
                         android:background="@color/colorPurple01"

@@ -2,6 +2,7 @@ package com.example.stayconnect.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.ColorSpace;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.example.stayconnect.FilterChats;
 import com.example.stayconnect.Utils;
 import com.example.stayconnect.activities.ChatActivity;
 import com.example.stayconnect.databinding.RowChatsBinding;
+import com.example.stayconnect.models.ModelAd;
 import com.example.stayconnect.models.ModelChats;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -78,7 +80,7 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.HolderChats>
 
                 String ownerUid = modelChats.getOwnerUid();
 
-                if(ownerUid != null){
+                if (ownerUid != null) {
 
                     Intent intent = new Intent(context, ChatActivity.class);
                     intent.putExtra("ownerUid", ownerUid);
@@ -93,7 +95,7 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.HolderChats>
 
         String chatKey = modelChats.getChatKey();
 
-        Log.d(TAG, "loadLastMessage: chatKey: "+chatKey);
+        Log.d(TAG, "loadLastMessage: chatKey: " + chatKey);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Chats");
         ref.child(chatKey).limitToLast(1)
@@ -101,13 +103,13 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.HolderChats>
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        for(DataSnapshot ds: snapshot.getChildren()){
+                        for (DataSnapshot ds : snapshot.getChildren()) {
 
-                            String fromUid = ""+ ds.child("fromUid").getValue();
-                            String toUid = ""+ ds.child("toUid").getValue();
-                            String message = ""+ ds.child("message").getValue();
-                            String messageType = ""+ ds.child("messageType").getValue();
-                            String messageId = ""+ ds.child("messageId").getValue();
+                            String fromUid = "" + ds.child("fromUid").getValue();
+                            String toUid = "" + ds.child("toUid").getValue();
+                            String message = "" + ds.child("message").getValue();
+                            String messageType = "" + ds.child("messageType").getValue();
+                            String messageId = "" + ds.child("messageId").getValue();
                             long timestamp = (Long) ds.child("timestamp").getValue();
 
                             String formattedDateTime = Utils.formatTimestampDateTime(timestamp);
@@ -122,7 +124,7 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.HolderChats>
 
                             holder.dateTimeTv.setText(formattedDateTime);
 
-                            if(messageType.equals("TEXT")){
+                            if (messageType.equals("TEXT")) {
                                 holder.lastMessageTv.setText(message);
                             }
 
@@ -146,18 +148,18 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.HolderChats>
         String toUid = modelChats.getToUid();
 
         String ownerUid;
-        if(fromUid.equals(myUid)){
+        if (fromUid.equals(myUid)) {
             ownerUid = toUid;
-        }else {
+        } else {
             ownerUid = fromUid;
         }
 
         modelChats.setOwnerUid(ownerUid);
 
 
-        Log.d(TAG, "loadOwnerUserInfo: fromUid: "+fromUid);
-        Log.d(TAG, "loadOwnerUserInfo: toUid: "+toUid);
-        Log.d(TAG, "loadOwnerUserInfo: ownerUid: "+ownerUid);
+        Log.d(TAG, "loadOwnerUserInfo: fromUid: " + fromUid);
+        Log.d(TAG, "loadOwnerUserInfo: toUid: " + toUid);
+        Log.d(TAG, "loadOwnerUserInfo: ownerUid: " + ownerUid);
 
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
@@ -166,7 +168,7 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.HolderChats>
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String name = ""+ snapshot.child("name").getValue();
+                        String name = "" + snapshot.child("name").getValue();
 //                        String profileImageUrl = ""+ snapshot.child("profileImageUrl").getValue();
 
 
@@ -191,13 +193,13 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.HolderChats>
     @Override
     public Filter getFilter() {
 
-        if(filter == null){
+        if (filter == null) {
             filter = new FilterChats(this, filterList);
         }
         return filter;
     }
 
-    class HolderChats extends RecyclerView.ViewHolder{
+    class HolderChats extends RecyclerView.ViewHolder {
 
         ShapeableImageView profileIv;
         TextView nameTv, lastMessageTv, dateTimeTv;

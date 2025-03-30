@@ -73,8 +73,7 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
 
@@ -93,7 +92,7 @@ public class HomeFragment extends Fragment {
         currentLongitude = locationSp.getFloat("CURRENT_LONGITUDE", 0.0f);
         currentAddress = locationSp.getString("CURRENT_ADDRESS", "");
 //
-        if(currentLatitude != 0.0 && currentLongitude != 0.0){
+        if (currentLatitude != 0.0 && currentLongitude != 0.0) {
             binding.locationTv.setText(currentAddress);
         }
 
@@ -109,9 +108,9 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d(TAG, "onTextChanged: Query : "+s);
+                Log.d(TAG, "onTextChanged: Query : " + s);
 
-                try{
+                try {
                     String query = s.toString();
 
                     adapterAd.getFilter().filter(query);
@@ -136,44 +135,37 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private ActivityResultLauncher<Intent> locationPickerActivityResult = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
+    private ActivityResultLauncher<Intent> locationPickerActivityResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
 
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        Log.d(TAG, "onActivityResult: Result Ok");
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Log.d(TAG, "onActivityResult: Result Ok");
 
-                        Intent data = result.getData();
+                Intent data = result.getData();
 
-                        if (data != null) {
+                if (data != null) {
 
-                            Log.d(TAG, "onActivityResult: Location Picked");
+                    Log.d(TAG, "onActivityResult: Location Picked");
 
-                            currentLatitude = data.getDoubleExtra("latitude", 0.0);
-                            currentLongitude = data.getDoubleExtra("longitude", 0.0);
-                            currentAddress = data.getStringExtra("address");
+                    currentLatitude = data.getDoubleExtra("latitude", 0.0);
+                    currentLongitude = data.getDoubleExtra("longitude", 0.0);
+                    currentAddress = data.getStringExtra("address");
 
-                            locationSp.edit()
-                                    .putFloat("CURRENT_LATITUDE", Float.parseFloat(""+currentLatitude))
-                                    .putFloat("CURRENT_LONGITUDE", Float.parseFloat(""+currentLongitude))
-                                    .putString("CURRENT_ADDRESS", currentAddress)
-                                    .apply();
+                    locationSp.edit().putFloat("CURRENT_LATITUDE", Float.parseFloat("" + currentLatitude)).putFloat("CURRENT_LONGITUDE", Float.parseFloat("" + currentLongitude)).putString("CURRENT_ADDRESS", currentAddress).apply();
 
-                            binding.locationTv.setText(currentAddress);
+                    binding.locationTv.setText(currentAddress);
 
 
-                        }
-                    }else{
-                        Log.d(TAG, "onActivityResult: Cancelled...");
-                        Toast.makeText(mcontext, "Cancelled...", Toast.LENGTH_SHORT).show();
-                    }
                 }
+            } else {
+                Log.d(TAG, "onActivityResult: Cancelled...");
+                Toast.makeText(mcontext, "Cancelled...", Toast.LENGTH_SHORT).show();
             }
-    );
+        }
+    });
 
-    private void loadCategories(){
+    private void loadCategories() {
         ArrayList<ModelCategory> categoryArrayList = new ArrayList<>();
 
         ModelCategory modelCategoryAll = new ModelCategory("All", R.drawable.ic_category_all);
@@ -181,7 +173,7 @@ public class HomeFragment extends Fragment {
 
         Log.d(TAG, "loadCategories: Utils.categories.length = " + Utils.categories.length);
 
-        for (int i=0; i<Utils.categories.length; i++){
+        for (int i = 0; i < Utils.categories.length; i++) {
             ModelCategory modelCategory = new ModelCategory(Utils.categories[i], Utils.categoryIcons[i]);
             categoryArrayList.add(modelCategory);
         }
@@ -197,7 +189,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadAds(String selectedCategory) {
-        Log.d(TAG, "loadAds: Category : "+selectedCategory);
+        Log.d(TAG, "loadAds: Category : " + selectedCategory);
 
         hostelArrayList = new ArrayList<>();
 
@@ -214,13 +206,13 @@ public class HomeFragment extends Fragment {
 
                     double distance = calculateDistanceKm(modelAd.getLatitude(), modelAd.getLongitude());
 
-                    if(selectedCategory.equals("All")){
+                    if (selectedCategory.equals("All")) {
                         if (distance <= MAX_DISTANCE_TO_LOAD_ADS_KM) {
 
                             hostelArrayList.add(modelAd);
                         }
-                    }else{
-                        if(modelAd.getCategory().equals(selectedCategory)){
+                    } else {
+                        if (modelAd.getCategory().equals(selectedCategory)) {
                             hostelArrayList.add(modelAd);
                         }
                     }
@@ -241,10 +233,10 @@ public class HomeFragment extends Fragment {
 
     private double calculateDistanceKm(double hostelLatitude, double hostelLongitude) {
 
-        Log.d(TAG, "calculateDistanceKm: latitude: "+currentLatitude);
-        Log.d(TAG, "calculateDistanceKm: longitude: "+currentLongitude);
-        Log.d(TAG, "calculateDistanceKm: hostelLatitude: "+hostelLatitude);
-        Log.d(TAG, "calculateDistanceKm: hostelLongitude: "+hostelLongitude);
+        Log.d(TAG, "calculateDistanceKm: latitude: " + currentLatitude);
+        Log.d(TAG, "calculateDistanceKm: longitude: " + currentLongitude);
+        Log.d(TAG, "calculateDistanceKm: hostelLatitude: " + hostelLatitude);
+        Log.d(TAG, "calculateDistanceKm: hostelLongitude: " + hostelLongitude);
 
         Location startPoint = new Location(LocationManager.NETWORK_PROVIDER);
         startPoint.setLatitude(currentLatitude);

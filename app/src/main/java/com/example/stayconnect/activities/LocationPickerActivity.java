@@ -68,8 +68,6 @@ public class LocationPickerActivity extends AppCompatActivity implements OnMapRe
         setContentView(binding.getRoot());
 
 
-//        binding.doneLl.setVisibility(View.GONE);
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
         mapFragment.getMapAsync(this);
 
@@ -268,7 +266,7 @@ public class LocationPickerActivity extends AppCompatActivity implements OnMapRe
             selectedAddress = ""+addressLine;
 
             addMarker(latLng, ""+subLocality, ""+addressLine);
-            
+
         }catch (Exception e){
             Log.e(TAG, "addressFromLatlng: ", e);
         }

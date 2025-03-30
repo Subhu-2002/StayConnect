@@ -24,6 +24,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.cloudinary.android.MediaManager;
+import com.cloudinary.android.callback.ErrorInfo;
+import com.cloudinary.android.callback.UploadCallback;
 import com.example.stayconnect.R;
 import com.example.stayconnect.databinding.ActivityProfileEditBinding;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -124,43 +127,88 @@ public class ProfileEditActivity extends AppCompatActivity {
         progressDialog.setMessage("Uploading user profile image...");
         progressDialog.show();
 
-        String filePathAndName = "UserImages/" + "Profile_" + firebaseAuth.getUid();
 
-        StorageReference ref = FirebaseStorage.getInstance().getReference().child(filePathAndName);
-        ref.putFile(imageUri)
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+
+
+        MediaManager.get().upload(imageUri)
+                .unsigned("android_profile_upload")
+                .callback(new UploadCallback() {
                     @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
-                        Log.d(TAG, "onProgress: Progress: "+progress);
+                    public void onStart(String requestId) {
 
-                        progressDialog.setMessage("Uploading profile image. Progress: "+(int)progress + "%");
                     }
-                })
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
                     @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Log.d(TAG, "onSuccess: Uploaded");
+                    public void onProgress(String requestId, long bytes, long totalBytes) {
 
-                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                        double progress = (100.0 * bytes) / totalBytes;
+                        String message = "Uploading " + " image...\nProgress " + (int) progress + "%";
+                        progressDialog.setMessage(message);
 
-                        while (!uriTask.isSuccessful());
-                        String uploadedImageUri = uriTask.getResult().toString();
-
-                        if (uriTask.isSuccessful()) {
-                            updateProfileDb(uploadedImageUri);
-                        }
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
 
-                        Log.e(TAG, "onFailure: ", e);
+                    @Override
+                    public void onSuccess(String requestId, Map resultData) {
+                        String publicId = (String) resultData.get("public_id");
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference userRef = database.getReference("Users").child(firebaseAuth.getUid());
+
+                        userRef.child("profilePicture").setValue(publicId);
+
                         progressDialog.dismiss();
-                        Toast.makeText(ProfileEditActivity.this, "Failed to upload profile image due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                });
+
+                    @Override
+                    public void onError(String requestId, ErrorInfo error) {
+
+                    }
+
+                    @Override
+                    public void onReschedule(String requestId, ErrorInfo error) {
+
+                    }
+                }).dispatch();
+
+
+
+//        String filePathAndName = "UserImages/" + "Profile_" + firebaseAuth.getUid();
+//
+//        StorageReference ref = FirebaseStorage.getInstance().getReference().child(filePathAndName);
+//        ref.putFile(imageUri)
+//                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+//                        double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+//                        Log.d(TAG, "onProgress: Progress: "+progress);
+//
+//                        progressDialog.setMessage("Uploading profile image. Progress: "+(int)progress + "%");
+//                    }
+//                })
+//                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                        Log.d(TAG, "onSuccess: Uploaded");
+//
+//                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+//
+//                        while (!uriTask.isSuccessful());
+//                        String uploadedImageUri = uriTask.getResult().toString();
+//
+//                        if (uriTask.isSuccessful()) {
+//                            updateProfileDb(uploadedImageUri);
+//                        }
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                        Log.e(TAG, "onFailure: ", e);
+//                        progressDialog.dismiss();
+//                        Toast.makeText(ProfileEditActivity.this, "Failed to upload profile image due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
     }
 
     private void updateProfileDb(String imageUrl){
@@ -420,6 +468,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                         imageUri = data.getData();
 
                         Log.d(TAG, "onActivityResult: Image Picked From Gallery: "+imageUri);
+
 
                         try {
                             Glide.with(ProfileEditActivity.this)

@@ -11,7 +11,6 @@ import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,8 +45,7 @@ public class FavFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         binding = FragmentFavBinding.inflate(inflater, container, false);
@@ -65,8 +63,7 @@ public class FavFragment extends Fragment {
         FragmentManager fragmentManager = getChildFragmentManager();
         myTabsViewPagerAdapter = new MyTabsViewPagerAdapter(getChildFragmentManager(), getLifecycle(), new ArrayList<>());
         binding.viewPager.setAdapter(myTabsViewPagerAdapter);
-//
-//
+
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -84,7 +81,7 @@ public class FavFragment extends Fragment {
 
             }
         });
-//
+
         binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -95,7 +92,7 @@ public class FavFragment extends Fragment {
     }
 
 
-    public class MyTabsViewPagerAdapter extends FragmentStateAdapter{
+    public class MyTabsViewPagerAdapter extends FragmentStateAdapter {
 
         public MyTabsViewPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, ArrayList arrayList) {
             super(fragmentManager, lifecycle);
@@ -105,9 +102,9 @@ public class FavFragment extends Fragment {
         @Override
         public Fragment createFragment(int position) {
 
-            if(position == 0){
+            if (position == 0) {
                 return new MyAdsAdsFragment();
-            }else{
+            } else {
                 return new MyAdsFavFragment();
             }
         }

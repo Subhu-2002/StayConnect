@@ -2,30 +2,22 @@ package com.example.stayconnect.models;
 
 public class ModelImageSlider {
 
-    String id;
-    String imageUrl;
+    String publicId;
 
     public ModelImageSlider() {
     }
 
-    public ModelImageSlider(String id, String imageUrl) {
-        this.id = id;
-        this.imageUrl = imageUrl;
+
+    public ModelImageSlider(String publicId) {
+        this.publicId = publicId;
     }
 
-    public String getId() {
-        return id;
+
+    public String getPublicId() {
+        return publicId;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setPublicId(String publicId) {
+        this.publicId = publicId;
     }
 }

@@ -174,39 +174,33 @@ public class MainActivity extends AppCompatActivity {
         String myUid = "" + firebaseAuth.getUid();
         Log.d(TAG, "updateFCMToken: myUid: " + myUid);
 
-        FirebaseMessaging.getInstance().getToken()
-                .addOnSuccessListener(new OnSuccessListener<String>() {
+        FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener<String>() {
+            @Override
+            public void onSuccess(String token) {
+                Log.d(TAG, "onSuccess: token: " + token);
+
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("fcmToken", token);
+
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                ref.child(myUid).updateChildren(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(String token) {
-                        Log.d(TAG, "onSuccess: token: " + token);
-
-                        HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("fcmToken", token);
-
-                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
-                        ref.child(myUid)
-                                .updateChildren(hashMap)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Log.d(TAG, "onSuccess: Token updated...");
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.e(TAG, "onFailure: ", e);
-                                    }
-                                });
+                    public void onSuccess(Void unused) {
+                        Log.d(TAG, "onSuccess: Token updated...");
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
+                }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG, "onFailure: ", e);
-                        ;
                     }
                 });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(TAG, "onFailure: ", e);
+            }
+        });
     }
 
     private void askNotificationPermission() {
@@ -219,13 +213,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private ActivityResultLauncher<String> requestNotificationPermission = registerForActivityResult(
-            new ActivityResultContracts.RequestPermission(),
-            new ActivityResultCallback<Boolean>() {
-                @Override
-                public void onActivityResult(Boolean isGranted) {
-                    Log.d(TAG, "onActivityResult: Notification Permission State : " + isGranted);
-                }
-            }
-    );
+    private ActivityResultLauncher<String> requestNotificationPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean isGranted) {
+            Log.d(TAG, "onActivityResult: Notification Permission State : " + isGranted);
+        }
+    });
 }

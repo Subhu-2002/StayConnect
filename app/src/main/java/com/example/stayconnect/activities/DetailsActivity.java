@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.cloudinary.android.MediaManager;
 import com.example.stayconnect.R;
 import com.example.stayconnect.Utils;
 import com.example.stayconnect.adapters.AdapterImageSlider;
@@ -67,17 +69,17 @@ public class DetailsActivity extends AppCompatActivity {
 
 
         adId = getIntent().getStringExtra("adId");
-        Log.d(TAG, "onCreate: adId: "+adId);
+        Log.d(TAG, "onCreate: adId: " + adId);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if(firebaseAuth.getCurrentUser() != null){
+        if (firebaseAuth.getCurrentUser() != null) {
             checkIsFavorite();
         }
 
         loadAdDetails();
-//        loadAdImages();
+        loadImages();
 
 
         binding.toolbarBackBtn.setOnClickListener(new View.OnClickListener() {
@@ -119,9 +121,9 @@ public class DetailsActivity extends AppCompatActivity {
         binding.toolbarFavBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(favorite){
+                if (favorite) {
                     Utils.removeFromFavorite(DetailsActivity.this, adId);
-                }else{
+                } else {
                     Utils.addToFavorite(DetailsActivity.this, adId);
                 }
             }
@@ -139,7 +141,9 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DetailsActivity.this, ChatActivity.class);
                 intent.putExtra("ownerUid", ownerUid);
-                Log.d(TAG, "onClick: ownerUid: "+ownerUid);
+                intent.putExtra("adId", adId);
+                Log.d(TAG, "onClick: ownerUid: " + ownerUid);
+                Log.d(TAG, "onClick: adId: " + adId);
                 startActivity(intent);
             }
         });
@@ -166,6 +170,42 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
+    private void loadImages() {
+
+        imageSliderArrayList = new ArrayList<>();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Ads");
+        ref.child(adId).child("Images")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        imageSliderArrayList.clear();
+
+                        for(DataSnapshot ds: snapshot.getChildren()){
+
+                           String publicId = ds.getValue(String.class);
+
+                            if (publicId != null) {
+
+                                ModelImageSlider imageSlider = new ModelImageSlider();
+                                imageSlider.setPublicId(publicId);
+                                imageSliderArrayList.add(imageSlider);
+                            }
+                        }
+
+                        AdapterImageSlider adapterImageSlider = new AdapterImageSlider(DetailsActivity.this, imageSliderArrayList);
+                        binding.imageSliderVp.setAdapter(adapterImageSlider);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
     private void editOptions() {
 
         Log.d(TAG, "editOptions: ");
@@ -182,7 +222,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                 int itemId = item.getItemId();
 
-                if(itemId == 0){
+                if (itemId == 0) {
                     Intent intent = new Intent(DetailsActivity.this, AddServiceActivity.class);
                     intent.putExtra("isEditMode", true);
                     intent.putExtra("adId", adId);
@@ -195,16 +235,16 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
 
-    private void loadAdDetails(){
+    private void loadAdDetails() {
 
         Log.d(TAG, "loadAdDetails: ");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Ads");
         ref.child(adId)
-                .addValueEventListener(new ValueEventListener() {                    
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        try{
+                        try {
 
                             ModelAd modelAd = snapshot.getValue(ModelAd.class);
 
@@ -218,13 +258,13 @@ public class DetailsActivity extends AppCompatActivity {
                             adLatitude = modelAd.getLatitude();
                             adLongitude = modelAd.getLongitude();
 
-                            if(ownerUid.equals(firebaseAuth.getUid())){
+                            if (ownerUid.equals(firebaseAuth.getUid())) {
                                 binding.toolbarEditBtn.setVisibility(View.VISIBLE);
                                 binding.toobarDeleteBtn.setVisibility(View.VISIBLE);
                                 binding.chatBtn.setVisibility(View.GONE);
                                 binding.callBtn.setVisibility(View.GONE);
                                 binding.smsBtn.setVisibility(View.GONE);
-                            }else{
+                            } else {
                                 binding.toolbarEditBtn.setVisibility(View.GONE);
                                 binding.toobarDeleteBtn.setVisibility(View.GONE);
                                 binding.chatBtn.setVisibility(View.VISIBLE);
@@ -237,6 +277,8 @@ public class DetailsActivity extends AppCompatActivity {
                             binding.descriptionTv.setText(description);
                             binding.addressTv.setText(address);
                             binding.priceTv.setText(price);
+
+
 
 
                             loadOwnerDetails();
@@ -264,28 +306,32 @@ public class DetailsActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String phoneCode =""+snapshot.child("phoneCode").getValue();
-                        String phoneNumber = ""+snapshot.child("phoneNumber").getValue();
-                        String name = ""+snapshot.child("name").getValue();
-//                        String profileImageUrl = ""+snapshot.child("")
+                        String phoneCode = "" + snapshot.child("phoneCode").getValue();
+                        String phoneNumber = "" + snapshot.child("phoneNumber").getValue();
+                        String name = "" + snapshot.child("name").getValue();
+                        String publicId = "" + snapshot.child("profilePicture").getValue();
+                        String imageUrl = MediaManager.get().url().generate(publicId);
                         long timestamp = (Long) snapshot.child("timeStamp").getValue();
 
 
                         String formattedDate = Utils.formatTimestampDate(timestamp);
 
-                        ownerPhone = phoneCode +""+ phoneNumber;
+                        ownerPhone = phoneCode + "" + phoneNumber;
 
 
                         binding.ownerNameTv.setText(ownerName);
-                        binding.memberSinceTv.setText(""+formattedDate);
-//                        try{
-//                            Glide.with(DetailsActivity.this)
-//                                    .load(profileImageUrl)
-//                                    .placeholder(R.drawable.ic_person_gray)
-//                                    .into(binding.ownerProfileIv);
-//                        } catch (Exception e) {
-//                            Log.e(TAG, "onDataChange: ", e);
-//                        }
+                        binding.memberSinceTv.setText("" + formattedDate);
+
+
+
+                        try{
+                            Glide.with(DetailsActivity.this)
+                                    .load(imageUrl)
+                                    .placeholder(R.drawable.ic_person_gray)
+                                    .into(binding.ownerProfileIv);
+                        }catch (Exception e){
+                            Log.e(TAG, "onDataChange: ", e);
+                        }
 
                     }
 
@@ -296,7 +342,7 @@ public class DetailsActivity extends AppCompatActivity {
                 });
     }
 
-    private void checkIsFavorite(){
+    private void checkIsFavorite() {
         Log.d(TAG, "checkIsFavorite: ");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
@@ -305,10 +351,10 @@ public class DetailsActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         favorite = snapshot.exists();
-                        Log.d(TAG, "onDataChange: favorite: "+favorite);
+                        Log.d(TAG, "onDataChange: favorite: " + favorite);
                         if (favorite) {
                             binding.toolbarFavBtn.setImageResource(R.drawable.ic_fav_yes);
-                        }else{
+                        } else {
                             binding.toolbarFavBtn.setImageResource(R.drawable.ic_fav_no);
                         }
                     }
@@ -320,36 +366,7 @@ public class DetailsActivity extends AppCompatActivity {
                 });
     }
 
-    private void loadAdImages(){
-
-        Log.d(TAG, "loadAdImages: ");
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Ads");
-        ref.child(adId).child("Images")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                        imageSliderArrayList.clear();
-
-                        for(DataSnapshot ds : snapshot.getChildren()){
-                            ModelImageSlider modelImageSlider = ds.getValue(ModelImageSlider.class);
-                            imageSliderArrayList.add(modelImageSlider);
-                        }
-
-                        AdapterImageSlider adapterImageSlider = new AdapterImageSlider(DetailsActivity.this, imageSliderArrayList);
-                        binding.imageSliderVp.setAdapter(adapterImageSlider);
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-    }
-
-    private void deleteAd(){
+    private void deleteAd() {
 
         Log.d(TAG, "deletedAd: ");
 
@@ -369,8 +386,10 @@ public class DetailsActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG, "onFailure: ", e);
-                        Toast.makeText(DetailsActivity.this, "Failed to delete due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailsActivity.this, "Failed to delete due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
+
 }

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.cloudinary.android.MediaManager;
 import com.example.stayconnect.R;
 import com.example.stayconnect.databinding.RowImageSliderBinding;
 import com.example.stayconnect.models.ModelImageSlider;
@@ -47,7 +48,8 @@ public class AdapterImageSlider extends RecyclerView.Adapter<AdapterImageSlider.
 
         ModelImageSlider modelImageSlider = imageSliderArrayList.get(position);
 
-        String imageUrl = modelImageSlider.getImageUrl();
+        String publicId = modelImageSlider.getPublicId();
+        String imageUrl = MediaManager.get().url().generate(publicId);
         String imageCount = (position + 1) +"/"+ imageSliderArrayList.size();
 
         holder.imageCountTv.setText(imageCount);

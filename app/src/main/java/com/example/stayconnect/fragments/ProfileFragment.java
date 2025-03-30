@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.cloudinary.android.MediaManager;
 import com.example.stayconnect.Utils;
 import com.example.stayconnect.activities.MainActivity;
 import com.example.stayconnect.R;
@@ -32,9 +32,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Calendar;
-import java.util.Locale;
 
 
 public class ProfileFragment extends Fragment {
@@ -143,13 +140,13 @@ public class ProfileFragment extends Fragment {
                         String phoneNumber = "" + snapshot.child("phoneNumber").getValue();
                         String profileImageUri = "" + snapshot.child("profileImageUri").getValue();
                         String timestamp = "" + snapshot.child("timeStamp").getValue();
-                        Log.d(TAG, "onDataChange: timeStamp: "+timestamp);
+                        Log.d(TAG, "onDataChange: timeStamp: " + timestamp);
                         String userType = "" + snapshot.child("userType").getValue();
                         String name = "" + snapshot.child("name").getValue();
 
                         String phone = phoneCode + phoneNumber;
 
-                        if(timestamp.equals("null")){
+                        if (timestamp.equals("null")) {
                             timestamp = "0";
                         }
 
@@ -161,7 +158,7 @@ public class ProfileFragment extends Fragment {
                         binding.memberSinceTv.setText(formattedDate);
                         binding.dobTv.setText(dob);
 
-                        if(userType.equals("Email")){
+                        if (userType.equals("Email")) {
 
                             boolean isVerified = firebaseAuth.getCurrentUser().isEmailVerified();
 
@@ -169,25 +166,49 @@ public class ProfileFragment extends Fragment {
 
                                 binding.verifyAccountCv.setVisibility(View.GONE);
                                 binding.verificationStatusTv.setText("Verified");
-                            }else{
+                            } else {
 
                                 binding.verifyAccountCv.setVisibility(View.VISIBLE);
                                 binding.verificationStatusTv.setText("Not Verified");
                             }
-                        }else{
-                            binding.verifyAccountCv.setVisibility(View.GONE); 
+                        } else {
+                            binding.verifyAccountCv.setVisibility(View.GONE);
                             binding.verificationStatusTv.setText("Verified");
                         }
 
-                        try {
-                            Glide.with(mContext)
-                                    .load(profileImageUri)
-                                    .placeholder(R.drawable.ic_person_gray)
-                                    .into(binding.profileIv);
 
-                        } catch (Exception e) {
-                            Log.e(TAG, "onDataChange: ", e);
-                        }
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                        ref.child(firebaseAuth.getUid())
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                        if (snapshot.exists()) {
+
+                                            String publicId = snapshot.child("profilePicture").getValue(String.class);
+
+                                            if(publicId != null){
+                                                String imageUrl = MediaManager.get().url().generate(publicId);
+
+                                                try {
+                                                    Glide.with(mContext)
+                                                            .load(imageUrl)
+                                                            .placeholder(R.drawable.ic_person_gray)
+                                                            .into(binding.profileIv);
+
+                                                } catch (Exception e) {
+                                                    Log.e(TAG, "onDataChange: ", e);
+                                                }
+                                            }
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                     }
 
                     @Override
@@ -221,7 +242,7 @@ public class ProfileFragment extends Fragment {
 
                         Log.e(TAG, "onFailure: ", e);
                         progressDialog.dismiss();
-                        Toast.makeText(mContext, "Failed due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Failed due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

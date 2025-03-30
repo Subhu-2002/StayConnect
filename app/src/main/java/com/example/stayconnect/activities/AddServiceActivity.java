@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -30,9 +29,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
+import com.cloudinary.android.MediaManager;
+import com.cloudinary.android.callback.ErrorInfo;
+import com.cloudinary.android.callback.UploadCallback;
 import com.example.stayconnect.R;
 import com.example.stayconnect.Utils;
 import com.example.stayconnect.adapters.AdapterImagesPicked;
@@ -79,17 +79,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
 
     private String adIdForEditing;
 
-
-
-
-
-
-
     LocationManager locationManager;
-
-
-
-
 
 
     @Override
@@ -112,9 +102,9 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
 
         Intent intent = getIntent();
         isEditMode = intent.getBooleanExtra("isEditMode", false);
-        Log.d(TAG, "onCreate: isEditMode: "+isEditMode);
+        Log.d(TAG, "onCreate: isEditMode: " + isEditMode);
 
-        if(isEditMode){
+        if (isEditMode) {
 
             adIdForEditing = intent.getStringExtra("adId");
 
@@ -122,7 +112,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
 
             binding.toolbarTitleTv.setText("Update Ad");
             binding.postAdBtn.setText("Update Ad");
-        }else{
+        } else {
 
             binding.toolbarTitleTv.setText("Create Ad");
             binding.postAdBtn.setText("Create Ad");
@@ -156,18 +146,6 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
             }
         });
 
-//        binding.hostelAddress.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(ContextCompat.checkSelfPermission(AddServiceActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-//                        != PackageManager.PERMISSION_GRANTED){
-//                    ActivityCompat.requestPermissions(AddServiceActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
-//                }
-//
-//                getLocation();
-//            }
-//        });
-
         binding.postAdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,7 +177,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
 
                             binding.locationAct.setText(hostelAddress);
 
-                        }else{
+                        } else {
                             Log.d(TAG, "onActivityResult: Cancelled");
                             Toast.makeText(AddServiceActivity.this, "Cancelled...", Toast.LENGTH_SHORT).show();
                         }
@@ -237,7 +215,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 
                         requestCameraPermission.launch(new String[]{Manifest.permission.CAMERA});
-                    }else{
+                    } else {
                         requestCameraPermission.launch(new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE});
                     }
 
@@ -263,11 +241,11 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
             new ActivityResultCallback<Boolean>() {
                 @Override
                 public void onActivityResult(Boolean isGranted) {
-                    Log.d(TAG, "onActivityResult: isGranted :"+isGranted);
+                    Log.d(TAG, "onActivityResult: isGranted :" + isGranted);
 
-                    if(isGranted){
+                    if (isGranted) {
                         pickImageGallery();
-                    }else{
+                    } else {
                         Toast.makeText(AddServiceActivity.this, "Storage Permission Denied...", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -280,16 +258,16 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
                 @Override
                 public void onActivityResult(Map<String, Boolean> result) {
                     Log.d(TAG, "onActivityResult: ");
-                    Log.d(TAG, "onActivityResult: "+result.toString());
+                    Log.d(TAG, "onActivityResult: " + result.toString());
 
                     boolean areAllGranted = true;
-                    for(boolean isGranted : result.values()){
-                        areAllGranted  = areAllGranted && isGranted;
+                    for (boolean isGranted : result.values()) {
+                        areAllGranted = areAllGranted && isGranted;
                     }
-                    
-                    if(areAllGranted){
+
+                    if (areAllGranted) {
                         pickImageCamera();
-                    }else{
+                    } else {
                         Toast.makeText(AddServiceActivity.this, "Camera or Storage or both Permissions denied...", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -330,18 +308,18 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
                 @Override
                 public void onActivityResult(ActivityResult result) {
 
-                    if(result.getResultCode() == Activity.RESULT_OK){
+                    if (result.getResultCode() == Activity.RESULT_OK) {
 
-                        Log.d(TAG, "onActivityResult: Image Picked : "+imageUri);
+                        Log.d(TAG, "onActivityResult: Image Picked : " + imageUri);
 
-                        String timeStamp = ""+System.currentTimeMillis();
+                        String timeStamp = "" + System.currentTimeMillis();
 
                         ModelImagePicked modelImagePicked = new ModelImagePicked(timeStamp, imageUri, null, false);
                         imagePickedArrayList.add(modelImagePicked);
 
                         loadImages();
 
-                    }else{
+                    } else {
                         Toast.makeText(AddServiceActivity.this, "Cancelled...", Toast.LENGTH_SHORT).show();
                     }
 
@@ -363,16 +341,16 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
 
                         imageUri = data.getData();
 
-                        Log.d(TAG, "onActivityResult: Image Picked From Gallery: "+imageUri);
+                        Log.d(TAG, "onActivityResult: Image Picked From Gallery: " + imageUri);
 
-                        String timeStamp = ""+System.currentTimeMillis();
+                        String timeStamp = "" + System.currentTimeMillis();
 
                         ModelImagePicked modelImagePicked = new ModelImagePicked(timeStamp, imageUri, null, false);
                         imagePickedArrayList.add(modelImagePicked);
 
                         loadImages();
 
-                    }else{
+                    } else {
                         Toast.makeText(AddServiceActivity.this, "Cancelled...", Toast.LENGTH_SHORT).show();
                     }
 
@@ -381,11 +359,12 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
     );
 
 
-    private String ownerName ="";
+    private String ownerName = "";
     private String category = "";
     private String rent = "";
     private String hostelName = "";
     private String hostelAddress = "";
+    private String[] images;
     private String ownerContactNumber = "";
     private String descriptionEt = "";
     private double latitude = 0.0;
@@ -428,13 +407,13 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
         } else if (descriptionEt.isEmpty()) {
             binding.descriptionEt.setError("Enter description");
             binding.descriptionEt.requestFocus();
-        }else if(imagePickedArrayList.isEmpty()){
+        } else if (imagePickedArrayList.isEmpty()) {
             Toast.makeText(this, "Pick At-Least one image", Toast.LENGTH_SHORT).show();
-            
-        }else{
-            if(isEditMode){
+
+        } else {
+            if (isEditMode) {
                 updateAd();
-            }else {
+            } else {
                 addService();
             }
         }
@@ -450,13 +429,13 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
         progressDialog.show();
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("category", ""+category);
-        hashMap.put("rent", ""+rent);
-        hashMap.put("adName", ""+hostelName);
-        hashMap.put("adAddress", ""+hostelAddress);
-        hashMap.put("ownerContactNumber", ""+ownerContactNumber);
-        hashMap.put("ownerName", ""+ownerName);
-        hashMap.put("description", ""+descriptionEt);
+        hashMap.put("category", "" + category);
+        hashMap.put("rent", "" + rent);
+        hashMap.put("adName", "" + hostelName);
+        hashMap.put("adAddress", "" + hostelAddress);
+        hashMap.put("ownerContactNumber", "" + ownerContactNumber);
+        hashMap.put("ownerName", "" + ownerName);
+        hashMap.put("description", "" + descriptionEt);
         hashMap.put("latitude", latitude);
         hashMap.put("longitude", longitude);
 
@@ -473,7 +452,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e(TAG, "onFailure: ", e);
-                        Toast.makeText(AddServiceActivity.this, "Failed to update Ad due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddServiceActivity.this, "Failed to update Ad due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -482,7 +461,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
 
         Log.d(TAG, "addService: ");
 
-        progressDialog.setMessage("Publishing Hosel");
+        progressDialog.setMessage("Publishing Hostel");
         progressDialog.show();
 
         long timeStamp = System.currentTimeMillis();
@@ -491,15 +470,15 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
         String keyId = refAds.push().getKey();
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("id", ""+keyId);
-        hashMap.put("uid", ""+firebaseAuth.getUid());
-        hashMap.put("category", ""+category);
-        hashMap.put("ownerName", ""+ownerName);
-        hashMap.put("rent", ""+rent);
-        hashMap.put("hostelName", ""+hostelName);
-        hashMap.put("hostelAddress", ""+hostelAddress);
-        hashMap.put("ownerContactNumber", ""+ownerContactNumber);
-        hashMap.put("description", ""+descriptionEt);
+        hashMap.put("id", "" + keyId);
+        hashMap.put("uid", "" + firebaseAuth.getUid());
+        hashMap.put("category", "" + category);
+        hashMap.put("ownerName", "" + ownerName);
+        hashMap.put("rent", "" + rent);
+        hashMap.put("hostelName", "" + hostelName);
+        hashMap.put("hostelAddress", "" + hostelAddress);
+        hashMap.put("ownerContactNumber", "" + ownerContactNumber);
+        hashMap.put("description", "" + descriptionEt);
         hashMap.put("timeStamp", timeStamp);
         hashMap.put("latitude", latitude);
         hashMap.put("longitude", longitude);
@@ -521,7 +500,7 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
                         Log.e(TAG, "onFailure: ", e);
                         progressDialog.dismiss();
 
-                        Toast.makeText(AddServiceActivity.this, "Failed to publish hostel due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddServiceActivity.this, "Failed to publish hostel due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -529,61 +508,110 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
     private void uploadImageStorage(String adId) {
         Log.d(TAG, "uploadImageStorage: ");
 
-        for(int i=0; i<imagePickedArrayList.size(); i++){
-            ModelImagePicked modelImagePicked = imagePickedArrayList.get(i);
+        for (int i = 0; i < imagePickedArrayList.size(); i++) {
+            ModelImagePicked modelImagePicked = imagePickedArrayList.get(i);    
 
             String imageName = modelImagePicked.getId();
 
-            String filePathAndName = "And/"+imageName;
+//            String filePathAndName = "And/" + imageName;
 
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathAndName);
+//            StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathAndName);
 
-            int imageIndexForProgress = i+1;
+            int imageIndexForProgress = i + 1;
 
-            storageReference.putFile(modelImagePicked.getImageUri())
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            MediaManager.get().upload(modelImagePicked.getImageUri())
+                    .unsigned("android_profile_upload")
+                    .callback(new UploadCallback() {
                         @Override
-                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                            double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+                        public void onStart(String requestId) {
 
-                            String message = "Uploading " + imageIndexForProgress + " of " + imagePickedArrayList.size() + " images...\nProgress " + (int)progress + "%";
-                            
+                        }
+
+                        @Override
+                        public void onProgress(String requestId, long bytes, long totalBytes) {
+
+                            double progress = (100.0 * bytes) / totalBytes;
+                            String message = "Uploading " + imageIndexForProgress + " of " + imagePickedArrayList.size() + " image...\nProgress " + (int) progress + "%";
                             progressDialog.setMessage(message);
                             progressDialog.show();
+
                         }
-                    })
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        public void onSuccess(String requestId, Map resultData) {
+
+                            String publicId = (String) resultData.get("public_id");
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference userRef = database.getReference("Ads")
+                                    .child(adId).child("Images");
+
+                            userRef.child("servicePicture"+imageIndexForProgress).setValue(publicId);
+
+                            progressDialog.dismiss();
 
                             Log.d(TAG, "onSuccess: ");
-
-                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                            while(!uriTask.isSuccessful());
-                            Uri uploadedUrl = uriTask.getResult();
-
-                            if (uriTask.isSuccessful()) {
-
-                                HashMap<String, Object> hashMap = new HashMap<>();
-                                hashMap.put("id", ""+modelImagePicked.getId());
-                                hashMap.put("imageUrl", ""+uploadedUrl);
-
-                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Ads");
-                                ref.child(adId).child("Images")
-                                        .child(imageName)
-                                        .updateChildren(hashMap);
-                            }
-                            progressDialog.dismiss();
                         }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
+
                         @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.e(TAG, "onFailure: ", e);
-                            
+                        public void onError(String requestId, ErrorInfo error) {
+
                             progressDialog.dismiss();
+                            Toast.makeText(AddServiceActivity.this, "Failed to upload images", Toast.LENGTH_SHORT).show();
                         }
-                    });
+
+                        @Override
+                        public void onReschedule(String requestId, ErrorInfo error) {
+                            progressDialog.dismiss();
+                            Toast.makeText(AddServiceActivity.this, "Failed to upload images", Toast.LENGTH_SHORT).show();
+                        }
+                    }).dispatch();
+
+
+
+//            storageReference.putFile(modelImagePicked.getImageUri())
+//                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+//                            double progress = (100.0 * snapshot.getBytesTransferred()) / snapshot.getTotalByteCount();
+//
+//                            String message = "Uploading " + imageIndexForProgress + " of " + imagePickedArrayList.size() + " images...\nProgress " + (int) progress + "%";
+//
+//                            progressDialog.setMessage(message);
+//                            progressDialog.show();
+//                        }
+//                    })
+//                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                        @Override
+//                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//
+//                            Log.d(TAG, "onSuccess: ");
+//
+//                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+//                            while (!uriTask.isSuccessful()) ;
+//                            Uri uploadedUrl = uriTask.getResult();
+//
+//                            if (uriTask.isSuccessful()) {
+//
+//                                HashMap<String, Object> hashMap = new HashMap<>();
+//                                hashMap.put("id", "" + modelImagePicked.getId());
+//                                hashMap.put("imageUrl", "" + uploadedUrl);
+//
+//                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Ads");
+//                                ref.child(adId).child("Images")
+//                                        .child(imageName)
+//                                        .updateChildren(hashMap);
+//                            }
+//                            progressDialog.dismiss();
+//                        }
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Log.e(TAG, "onFailure: ", e);
+//
+//                            progressDialog.dismiss();
+//                        }
+//                    });
         }
     }
 
@@ -619,12 +647,12 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
     }
 
     @SuppressLint("MissingPermission")
-    private void getLocation(){
+    private void getLocation() {
         locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, AddServiceActivity.this);
     }
 
-    private void loadAdDetails(){
+    private void loadAdDetails() {
         Log.d(TAG, "loadAdDetails: ");
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Ads");
@@ -633,15 +661,15 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String rent = ""+ snapshot.child("rent").getValue();
-                        String hostelName = ""+ snapshot.child("hostelName").getValue();
-                        String hostelAddress = ""+ snapshot.child("hostelAddress").getValue();
-                        String ownerContactNumber = ""+ snapshot.child("ownerContactNumber").getValue();
-                        String ownerName = ""+ snapshot.child("ownerName").getValue();
-                        String description = ""+ snapshot.child("description").getValue();
-                        String category = ""+ snapshot.child("category").getValue();
-                        String latitude = ""+ snapshot.child("latitude").getValue();
-                        String longitude = ""+ snapshot.child("longitude").getValue();
+                        String rent = "" + snapshot.child("rent").getValue();
+                        String hostelName = "" + snapshot.child("hostelName").getValue();
+                        String hostelAddress = "" + snapshot.child("hostelAddress").getValue();
+                        String ownerContactNumber = "" + snapshot.child("ownerContactNumber").getValue();
+                        String ownerName = "" + snapshot.child("ownerName").getValue();
+                        String description = "" + snapshot.child("description").getValue();
+                        String category = "" + snapshot.child("category").getValue();
+                        String latitude = "" + snapshot.child("latitude").getValue();
+                        String longitude = "" + snapshot.child("longitude").getValue();
 
                         binding.ownerNameEt.setText(ownerName);
                         binding.rentEt.setText(rent);
