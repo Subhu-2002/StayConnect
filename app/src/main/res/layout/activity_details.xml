@@ -88,6 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
+                android:layout_marginTop="5dp"
                 android:text="@string/price_symbol"
                 android:layout_below="@id/imageSliderVp"/>
 
@@ -96,6 +97,7 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="00"
                 android:layout_toEndOf="@id/priceSymbolTv"
                 android:layout_below="@+id/imageSliderVp"/>

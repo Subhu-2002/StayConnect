@@ -6,6 +6,6 @@
     <string name="already_have_account_login">Already Have Account? <b>Login</b></string>
     <string name="didnt_receive_otp_resend">Didn\'t Receive OTP? <b>Resend</b></string>
     <string name="forgot_password_recover">Forgot Password? <b>Recover</b></string>
-    <string name="price_symbol">$</string>
+    <string name="price_symbol"><b>Rent - </b></string>
     <string name="my_map_api_key">AIzaSyCP_rSKfpEuG_8Ak5tI-EyWBQGHtiHzCLk</string>
 </resources>

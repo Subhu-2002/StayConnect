@@ -219,9 +219,6 @@ public class ProfileEditActivity extends AppCompatActivity {
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("name", ""+name);
         hashMap.put("dob", ""+dob);
-        if (imageUrl != null) {
-            hashMap.put("profileImageUrl", ""+imageUrl);
-        }
         
         if (userType.equalsIgnoreCase("Phone")) {
             hashMap.put("email", ""+email);
@@ -238,7 +235,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Log.d(TAG, "onSuccess: Info updated...");
                         progressDialog.dismiss();
-
+                        
                         Toast.makeText(ProfileEditActivity.this, "Profile Updated...", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ProfileEditActivity.this, MainActivity.class));
                     }
@@ -269,7 +266,8 @@ public class ProfileEditActivity extends AppCompatActivity {
                         String email = "" + snapshot.child("email").getValue();
                         String phoneCode = "" + snapshot.child("phoneCode").getValue();
                         String phoneNumber = "" + snapshot.child("phoneNumber").getValue();
-                        String profilemageUri = "" + snapshot.child("profilemageUri").getValue();
+                        String publicId = ""+ snapshot.child("publicId").getValue();
+                        String imageUrl = MediaManager.get().url().generate(publicId);
                         String timestamp = "" + snapshot.child("timestamp").getValue();
                         userType = "" + snapshot.child("userType").getValue();
                         String name = "" + snapshot.child("name").getValue();
@@ -301,7 +299,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
                         try {
                             Glide.with(ProfileEditActivity.this)
-                                    .load(profilemageUri)
+                                    .load(imageUrl)
                                     .placeholder(R.drawable.ic_person_gray)
                                     .into(binding.profileIv);
 

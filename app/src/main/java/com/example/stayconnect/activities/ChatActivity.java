@@ -9,6 +9,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.cloudinary.android.MediaManager;
+import com.example.stayconnect.R;
 import com.example.stayconnect.Utils;
 import com.example.stayconnect.adapters.AdapterChat;
 import com.example.stayconnect.databinding.ActivityChatBinding;
@@ -65,13 +68,14 @@ public class ChatActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: chatPath: " + chatPath);
 
 
+        loadOwnerDetails();
         loadMessages();
 
 
         binding.toolbarBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
 
@@ -109,7 +113,6 @@ public class ChatActivity extends AppCompatActivity {
         Log.d(TAG, "sendMessage: message: " + message);
         Log.d(TAG, "sendMessage: timestamp: " + timestamp);
 
-        loadOwnerDetails();
         loadMessages();
 
         progressDialog.setMessage("Sending message...");
@@ -155,12 +158,26 @@ public class ChatActivity extends AppCompatActivity {
 
                 try {
                     String name = "" + snapshot.child("name").getValue();
-                    Log.d(TAG, "onDataChange: name: " + name);
+                    String publicId = "" + snapshot.child("profilePicture").getValue();
+                    String imageUrl = MediaManager.get().url().generate(publicId);
 
                     binding.toolbarTitleTv.setText(name);
+
+
+
+                    try{
+                        Glide.with(ChatActivity.this)
+                                .load(imageUrl)
+                                .placeholder(R.drawable.ic_person_gray)
+                                .into(binding.toolbarProfileRv);
+                    }catch (Exception e){
+                        Log.e(TAG, "onDataChange: ", e);;
+                    }
+
                 } catch (Exception e) {
                     Log.e(TAG, "onDataChange: ", e);
                 }
+
             }
 
             @Override

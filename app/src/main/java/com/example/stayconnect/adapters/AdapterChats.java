@@ -14,7 +14,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.cloudinary.android.MediaManager;
 import com.example.stayconnect.FilterChats;
+import com.example.stayconnect.R;
 import com.example.stayconnect.Utils;
 import com.example.stayconnect.activities.ChatActivity;
 import com.example.stayconnect.databinding.RowChatsBinding;
@@ -73,6 +76,10 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.HolderChats>
         ModelChats modelChats = chatsArrayList.get(position);
 
         loadLastMessage(modelChats, holder);
+
+
+
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +176,9 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.HolderChats>
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                         String name = "" + snapshot.child("name").getValue();
+                        String publicId = "" + snapshot.child("profilePicture").getValue();
+
+                        String imageUrl = MediaManager.get().url().generate(publicId);
 //                        String profileImageUrl = ""+ snapshot.child("profileImageUrl").getValue();
 
 
@@ -176,6 +186,15 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.HolderChats>
 //                        modelChats.setProfileImageUrl(profileImageUrl);
 
                         holder.nameTv.setText(name);
+
+                        try{
+                            Glide.with(context)
+                                    .load(imageUrl)
+                                    .placeholder(R.drawable.ic_profile_white)
+                                    .into(binding.profileIv);
+                        }catch (Exception e){
+                            Log.e(TAG, "onDataChange: ", e);
+                        }
                     }
 
                     @Override
