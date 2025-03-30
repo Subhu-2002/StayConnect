@@ -51,7 +51,7 @@
         android:layout_alignParentBottom="true"
         app:menu="@menu/menu_bottom"
         app:elevation="3dp"
-        android:background="@color/white"
+        android:background="?android:attr/windowBackground"
         app:labelVisibilityMode="labeled"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
