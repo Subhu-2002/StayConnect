@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/white"
+    android:background="@color/background_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
@@ -19,12 +19,13 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             style="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/text_color_primary"
             android:text="Home"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPurple02"
+            android:background="@color/primary_color"
             android:layout_alignParentBottom="true"/>
         
     </RelativeLayout>
@@ -40,7 +41,7 @@
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorPurple02"
+        android:background="@color/primary_color"
         android:layout_above="@id/bottomNav"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -61,6 +62,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp"
         android:src="@drawable/ic_add_white"
+        android:backgroundTint="@color/primary_color"
         app:tint="#ffffff"/>
 
 

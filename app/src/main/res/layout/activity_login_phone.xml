@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".activities.LoginPhoneActivity">
 
     <RelativeLayout
@@ -16,6 +17,7 @@
             android:id="@+id/toolbarBackBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tint="@color/primary_color"
             android:src="@drawable/ic_back"
             android:layout_centerVertical="true"
             android:padding="10dp"
@@ -25,6 +27,7 @@
             android:id="@+id/toolbarTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:text="Phone Login"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_centerInParent="true"/>
@@ -33,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/colorPurple02"/>
+            android:background="@color/primary_color"/>
     </RelativeLayout>
     
     <RelativeLayout
@@ -49,12 +52,13 @@
             android:layout_centerHorizontal="true"
             app:shapeAppearanceOverlay="@style/ImageStyle_Circle"
             android:src="@drawable/ic_profile_white"
-            android:background="@color/colorPurple02"/>
+            android:background="@color/primary_color"/>
 
         <TextView
             android:id="@+id/loginLabelTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:text="Login To Your Account"
             style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_centerHorizontal="true"
@@ -79,7 +83,7 @@
                 android:minHeight="56dp"
                 android:minWidth="60dp"
                 app:ccp_autoDetectCountry="true"
-                app:ccp_contentColor="@color/colorPurple02"
+                app:ccp_contentColor="@color/primary_color"
                 app:ccp_rememberLastSelection="true"
                 app:ccp_showFlag="false"
                 app:ccp_showNameCode="false"/>
@@ -101,6 +105,7 @@
                     android:id="@+id/phoneNumberEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_color_primary"
                     android:drawableStart="@drawable/ic_phone_white"
                     android:inputType="phone"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -109,6 +114,8 @@
                 android:id="@+id/sendOtpBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_color"
+                android:textColor="@color/white"
                 android:layout_below="@id/phoneNumberTil"
                 android:minHeight="@dimen/m_button_height"
                 android:text="send OTP"
@@ -136,6 +143,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_color_primary"
                     android:inputType="number"
                     android:maxLength="6"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -144,6 +152,8 @@
                 android:id="@+id/verifyBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_color"
+                android:textColor="@color/white"
                 android:text="Verify"
                 android:minHeight="@dimen/m_button_height"
                 android:layout_below="@id/otpTil"
@@ -153,6 +163,7 @@
                 android:id="@+id/resendOtpTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color_primary"
                 android:text="@string/didnt_receive_otp_resend"
                 android:layout_below="@id/verifyBtn"
                 android:layout_marginTop="5dp"

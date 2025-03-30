@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".activities.LoginEmailActivity">
 
     <RelativeLayout
@@ -27,13 +28,13 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Login"
-            android:textColor="@color/colorPurple02"
+            android:textColor="@color/text_color_primary"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPurple02"
+            android:background="@color/primary_color"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
@@ -48,7 +49,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
-            android:background="@color/colorPurple01"
+            android:background="@color/primary_color"
             android:src="@drawable/ic_profile_white"
             app:shapeAppearance="@style/ImageStyle_Circle" />
 
@@ -57,6 +58,7 @@
             style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:layout_below="@+id/profileIv"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
@@ -80,6 +82,7 @@
                 android:id="@+id/emailEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color_primary"
                 android:drawableStart="@drawable/ic_email_white"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -102,6 +105,7 @@
                 android:id="@+id/passwordEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color_primary"
                 android:drawableStart="@drawable/ic_lock_white"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -110,6 +114,7 @@
             android:id="@+id/noAccountTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:layout_below="@id/passwordTil"
             android:layout_marginTop="5dp"
             style="@style/TextAppearance.MaterialComponents.Body2"
@@ -119,6 +124,7 @@
             android:id="@+id/forgotPasswordTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:layout_below="@id/passwordTil"
             android:layout_marginTop="5dp"
             style="@style/TextAppearance.MaterialComponents.Body2"
@@ -129,6 +135,9 @@
             android:id="@+id/loginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_color"
+            app:cornerRadius="8dp"
+            android:textColor="@color/white"
             android:layout_alignParentBottom="true"
             android:minHeight="@dimen/m_button_height"
             android:text="login" />

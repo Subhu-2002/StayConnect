@@ -3,6 +3,20 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple_700">#2C73FF</color>
-    <color name="colorPurple01">#00BCD4</color>
-    <color name="colorPurple02">#00BCD4</color>
+
+    <color name="primary_color">#007BFF</color>
+    <color name="secondary_color">#6C757D</color>
+    <color name="background_color">#FFFFFF</color>
+    <color name="text_color_primary">#212529</color>
+    <color name="text_color_secondary">#6C757D</color>
+    <color name="accent_color_error">#DC3545</color>
+    <color name="accent_color_success">#28A745</color>
+    <color name="surface_color">#F8F9FA</color>
+
+    <!-- Existing colors from your code -->
+    <color name="primary">#409EFF</color>
+    <color name="success">#67C25A</color>
+    <color name="info">#909399</color>
+    <color name="warning">#E6A23C</color>
+    <color name="danger">#F56C6C</color>
 </resources>

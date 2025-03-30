@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".activities.ChatActivity">
 
     <RelativeLayout
@@ -19,18 +20,19 @@
             android:src="@drawable/ic_back"
             android:layout_centerVertical="true"
             android:padding="10dp"
+            app:tint="@color/primary_color"
             android:background="@android:color/transparent"/>
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/toolbarProfileRv"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_person_gray"
+            android:src="@drawable/ic_profile_white"
             android:layout_centerVertical="true"
             android:layout_marginEnd="5dp"
             android:scaleType="centerCrop"
             android:layout_toStartOf="@+id/toolbarTitleTv"
-            android:background="@color/colorPurple01"
+            android:background="@color/primary_color"
             app:shapeAppearanceOverlay="@style/ImageStyle_Circle"/>
 
         <TextView
@@ -39,13 +41,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="@tools:sample/full_names"
+            android:textColor="@color/text_color_primary"
             android:layout_centerInParent="true"/>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/purple_700"/>
+            android:background="@color/primary_color"/>
 
     </RelativeLayout>
 
@@ -63,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@id/chatInputRl"
-        android:background="@color/purple_700"/>
+        android:background="@color/primary_color"/>
 
     <RelativeLayout
         android:id="@+id/chatInputRl"
@@ -76,6 +79,7 @@
             android:id="@+id/messageEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:hint="Start Typing..."
             android:elevation="0dp"
             android:layout_toStartOf="@id/attachFab"
@@ -87,6 +91,7 @@
             android:id="@+id/attachFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_color"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_image_gray"
             android:layout_toStartOf="@+id/sendBtn"
@@ -97,6 +102,7 @@
             android:id="@+id/sendBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_color"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_send_white"
             android:layout_alignParentEnd="true"

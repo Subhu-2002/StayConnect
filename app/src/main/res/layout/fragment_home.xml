@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragments.HomeFragment">
@@ -19,6 +20,7 @@
             android:id="@+id/locationTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:drawableStart="@drawable/ic_location"
             android:drawableEnd="@drawable/ic_next_gray"
             android:gravity="center_vertical"
@@ -37,6 +39,7 @@
             android:id="@+id/searchEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:background="@android:color/transparent"
             android:drawableStart="@drawable/ic_search_gray"
             android:drawablePadding="10dp"
@@ -49,6 +52,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_color_primary"
         style="@style/TextAppearance.MaterialComponents.Overline"
         android:text="Browse Services"
         android:textStyle="bold"

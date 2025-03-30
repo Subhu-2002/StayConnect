@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".activities.DeleteAccountActivity">
 
     <RelativeLayout
@@ -16,6 +17,7 @@
             android:id="@+id/toolbarBackBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tint="@color/primary_color"
             android:src="@drawable/ic_back"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
@@ -25,6 +27,7 @@
             android:id="@+id/toolbarTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:text="Delete Account"
             android:layout_centerInParent="true"
             style="@style/TextAppearance.MaterialComponents.Body1"/>
@@ -32,7 +35,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPurple02"
+            android:background="@color/primary_color"
             android:layout_alignParentBottom="true"/>
 
     </RelativeLayout>
@@ -47,7 +50,7 @@
             android:id="@+id/profileIv"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@color/colorPurple01"
+            android:background="@color/primary_color"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:src="@drawable/ic_profile_white"
@@ -57,6 +60,7 @@
             android:id="@+id/deleteLabelTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:layout_below="@+id/profileIv"
             android:layout_marginTop="10dp"
             style="@style/TextAppearance.MaterialComponents.Caption"
@@ -69,6 +73,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/m_button_height"
+            android:backgroundTint="@color/primary_color"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"
             android:layout_alignParentBottom="true"
             android:text="confirm delete"
             app:cornerRadius="8dp"

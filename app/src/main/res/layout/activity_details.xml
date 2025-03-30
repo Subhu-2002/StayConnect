@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".activities.DetailsActivity">
 
     <RelativeLayout
@@ -17,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back"
+            app:tint="@color/primary_color"
             android:layout_centerVertical="true"
             android:padding="10dp"
             android:background="@android:color/transparent"/>
@@ -26,6 +28,7 @@
             android:id="@+id/toolbarTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:layout_centerInParent="true"
             android:text="Details"/>
 
@@ -33,6 +36,7 @@
             android:id="@+id/toobarDeleteBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tint="@color/primary_color"
             android:src="@drawable/ic_delete"
             android:layout_toStartOf="@+id/toolbarEditBtn"
             android:layout_centerVertical="true"
@@ -43,6 +47,7 @@
             android:id="@+id/toolbarEditBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tint="@color/primary_color"
             android:layout_toStartOf="@+id/toolbarFavBtn"
             android:src="@drawable/ic_edit"
             android:layout_centerVertical="true"
@@ -53,6 +58,7 @@
             android:id="@+id/toolbarFavBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tint="@color/primary_color"
             android:src="@drawable/ic_fav_no"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
@@ -62,7 +68,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/purple_700"
+            android:background="@color/primary_color"
             android:layout_alignParentBottom="true"/>
 
     </RelativeLayout>
@@ -87,6 +93,7 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color_primary"
                 android:layout_marginEnd="2dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/price_symbol"
@@ -97,6 +104,7 @@
                 style="@style/TextAppearance.MaterialComponents.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/text_color_primary"
                 android:layout_marginTop="5dp"
                 android:text="00"
                 android:layout_toEndOf="@id/priceSymbolTv"
@@ -120,6 +128,7 @@
                         style="@style/TextAppearance.MaterialComponents.Headline6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_primary"
                         android:layout_marginTop="4dp"
                         android:text="Title"/>
 
@@ -128,6 +137,7 @@
                         style="@style/TextAppearance.MaterialComponents.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_primary"
                         android:layout_below="@id/titleLabelTv"
                         tools:text="@tools:sample/lorem[5]"/>
 
@@ -153,6 +163,7 @@
                         style="@style/TextAppearance.MaterialComponents.Headline6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_primary"
                         android:layout_marginTop="4dp"
                         android:text="Description" />
 
@@ -161,6 +172,7 @@
                         style="@style/TextAppearance.MaterialComponents.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_primary"
                         android:layout_below="@id/descriptionLabelTv"
                         tools:text="@tools:sample/lorem[20]" />
 
@@ -186,6 +198,7 @@
                         style="@style/TextAppearance.MaterialComponents.Headline6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_primary"
                         android:layout_marginTop="4dp"
                         android:text="Address"/>
 
@@ -194,6 +207,7 @@
                         style="@style/TextAppearance.MaterialComponents.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_primary"
                         android:layout_below="@id/addressLabelTv"
                         tools:text="@tools:sample/lorem[5]"/>
 
@@ -227,6 +241,7 @@
                         style="@style/TextAppearance.MaterialComponents.Headline6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_primary"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="10dp"
                         android:text="Seller Description"/>
@@ -239,14 +254,15 @@
                         android:scaleType="centerCrop"
                         android:layout_below="@+id/receiptProfileLabelTv"
                         app:shapeAppearanceOverlay="@style/ImageStyle_Circle"
-                        android:background="@color/colorPurple01"
-                        android:src="@drawable/ic_person_gray"/>
+                        android:background="@color/primary_color"
+                        android:src="@drawable/ic_profile_white"/>
                     
                     <TextView
                         android:id="@+id/ownerNameTv"
                         style="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_primary"
                         android:layout_below="@+id/receiptProfileLabelTv"
                         android:layout_toEndOf="@+id/ownerProfileIv"
                         android:text="Full Name"/>
@@ -255,6 +271,7 @@
                         android:id="@+id/memberSinceLabelTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_primary"
                         android:layout_toEndOf="@+id/ownerProfileIv"
                         android:layout_below="@+id/ownerNameTv"
                         android:text="Member Since "/>
@@ -263,6 +280,7 @@
                         android:id="@+id/memberSinceTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/text_color_primary"
                         android:layout_toEndOf="@+id/memberSinceLabelTv"
                         android:layout_below="@+id/ownerNameTv"
                         android:text="DD/MM/YYYY"/>
@@ -271,6 +289,7 @@
                         android:id="@+id/nextIv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        app:tint="@color/primary_color"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/ic_next_gray"/>
@@ -294,6 +313,9 @@
             android:id="@+id/chatBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_color"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"
             android:layout_marginEnd="2dp"
             android:layout_weight="1"
             android:text="Chat"
@@ -306,6 +328,9 @@
             android:id="@+id/callBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_color"
+            app:iconTint="@color/white"
+            android:textColor="@color/white"
             android:layout_marginEnd="2dp"
             android:layout_weight="1"
             android:text="call"
@@ -318,6 +343,9 @@
             android:id="@+id/smsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_color"
+            app:iconTint="@color/white"
+            android:textColor="@color/white"
             android:layout_marginEnd="2dp"
             android:layout_weight="1"
             android:text="sms"
@@ -330,6 +358,9 @@
             android:id="@+id/mapBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary_color"
+            android:textColor="@color/white"
+            app:iconTint="@color/white"
             android:layout_weight="1"
             android:text="map"
             android:minHeight="@dimen/m_button_height"

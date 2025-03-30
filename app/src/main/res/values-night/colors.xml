@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="purple_700">#2C73FF</color>
+
+
+    <color name="primary_color">#64B5F6</color>
+    <color name="secondary_color">#A7B0B7</color>
+    <color name="background_color">#121212</color>
+    <color name="text_color_primary">#E0E0E0</color>
+    <color name="text_color_secondary">#A7B0B7</color>
+    <color name="accent_color_error">#F8D7DA</color>
+    <color name="accent_color_success">#D4EDDA</color>
+    <color name="surface_color">#1E1E1E</color>
+
+    <!-- Dark mode versions of your existing colors (adjust as needed) -->
+    <color name="primary">#90CAF9</color> <!-- Lighter version of #409EFF -->
+    <color name="success">#A5D6A7</color> <!-- Lighter version of #67C25A -->
+    <color name="info">#B0BEC5</color>   <!-- Lighter version of #909399 -->
+    <color name="warning">#FFCC80</color> <!-- Lighter version of #E6A23C -->
+    <color name="danger">#EF9A9A</color>  <!-- Lighter version of #F56C6C -->
+</resources>

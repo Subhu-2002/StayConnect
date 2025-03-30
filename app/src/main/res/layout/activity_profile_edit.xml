@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     android:orientation="vertical"
     tools:context=".activities.ProfileEditActivity">
 
@@ -16,6 +17,7 @@
             android:id="@+id/toolbarBackBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:tint="@color/primary_color"
             android:src="@drawable/ic_back"
             android:background="@android:color/transparent"
             android:layout_centerVertical="true"
@@ -25,6 +27,7 @@
             android:id="@+id/toolbarTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:text="Edit Profile"
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_centerInParent="true"/>
@@ -32,7 +35,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colorPurple02"
+            android:background="@color/primary_color"
             android:layout_alignParentBottom="true"/>
         
     </RelativeLayout>
@@ -57,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_profile_white"
-                    android:background="@color/colorPurple02"
+                    android:background="@color/primary_color"
                     app:shapeAppearanceOverlay="@style/ImageStyle_Circle"
                     android:scaleType="centerCrop"/>
 
@@ -66,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:fabSize="mini"
-                    android:backgroundTint="@color/colorPurple01"
+                    android:backgroundTint="@color/success"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_add_photo_white"
                     app:tint="@color/white"/>
@@ -91,6 +94,7 @@
                     android:id="@+id/nameEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_color_primary"
                     android:drawableStart="@drawable/ic_person_gray"
                     android:inputType="textPersonName|textCapWords"/>
 
@@ -113,6 +117,7 @@
                     android:id="@+id/dobEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_color_primary"
                     android:drawableStart="@drawable/ic_calender_white"
                     android:inputType="textPersonName|textCapWords"/>
 
@@ -135,6 +140,7 @@
                     android:id="@+id/emailEt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_color_primary"
                     android:drawableStart="@drawable/ic_person_gray"
                     android:inputType="textEmailAddress"/>
 
@@ -150,6 +156,7 @@
                     android:id="@+id/countryCodePicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:ccp_contentColor="@color/primary_color"
                     android:layout_marginTop="5dp"
                     android:minHeight="56dp"
                     android:minWidth="60dp"
@@ -177,6 +184,7 @@
                         android:id="@+id/phoneNumberEt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:textColor="@color/text_color_primary"
                         android:drawableStart="@drawable/ic_call_white"
                         android:inputType="phone"/>
 
@@ -188,6 +196,9 @@
                 android:id="@+id/updateBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_color"
+                android:textColor="@color/white"
+                app:iconTint="@color/white"
                 android:layout_below="@id/phoneInputRl"
                 android:layout_marginTop="20dp"
                 android:text="update"

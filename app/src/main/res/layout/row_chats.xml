@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/background_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardUseCompatPadding="true"
@@ -19,7 +20,8 @@
             android:src="@drawable/ic_profile_white"
             android:layout_marginEnd="10dp"
             app:shapeAppearanceOverlay="@style/ImageStyle_Circle"
-            android:background="@color/purple_700"
+            android:background="@color/primary_color"
+            android:tint="@color/white"
             android:layout_centerVertical="true"
             android:scaleType="centerCrop"/>
 
@@ -27,6 +29,7 @@
             android:id="@+id/nameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             tools:text="@tools:sample/full_names"
             android:layout_toEndOf="@+id/profileIv"
             style="@style/TextAppearance.MaterialComponents.Body1"/>
@@ -36,6 +39,7 @@
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:layout_below="@+id/nameTv"
             android:layout_toEndOf="@+id/profileIv"
             tools:text="@tools:sample/lorem[10]"
@@ -47,6 +51,7 @@
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             tools:text="@tools:sample/date/ddmmyy"
             android:layout_alignParentEnd="true"/>
     </RelativeLayout>

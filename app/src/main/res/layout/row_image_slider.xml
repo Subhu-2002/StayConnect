@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_color">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageIv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/primary_color"
         android:src="@drawable/ic_image_gray"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"/>
@@ -15,6 +17,7 @@
         android:id="@+id/imageCountTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_color_primary"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:text="1/3"

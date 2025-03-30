@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/background_color"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginStart="100dp"
@@ -20,6 +21,7 @@
             style="@style/TextAppearance.MaterialComponents.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             tools:text="@tools:sample/lorem[20]"
             android:textSize="16sp"/>
 
@@ -27,6 +29,8 @@
             android:id="@+id/imageIv"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:background="@color/primary_color"
+            app:tint="@color/white"
             android:src="@drawable/ic_image_gray"
             android:padding="15dp"
             android:adjustViewBounds="true"
@@ -37,6 +41,7 @@
             style="@style/TextAppearance.MaterialComponents.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text_color_primary"
             android:layout_gravity="end"
             tools:text="23/03/2025 07:34PM"/>
 
