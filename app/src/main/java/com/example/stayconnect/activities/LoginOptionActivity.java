@@ -89,6 +89,7 @@ public class LoginOptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 beginGoogleLogin();
+
             }
         });
     }
@@ -193,7 +194,7 @@ public class LoginOptionActivity extends AppCompatActivity {
                         Log.d(TAG, "onSuccess: Info saved...");
                         progressDialog.dismiss();
 
-                        startActivity(new Intent(LoginOptionActivity.this, MainActivity.class));
+                        startActivity(new Intent(LoginOptionActivity.this, ProfileEditActivity.class));
                         finishAffinity();
                     }
                 })

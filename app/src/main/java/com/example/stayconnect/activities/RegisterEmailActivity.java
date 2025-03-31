@@ -148,7 +148,7 @@ public class RegisterEmailActivity extends AppCompatActivity {
                         Log.d(TAG, "onSuccess: Info saved...");
                         progressDialog.dismiss();
 
-                        startActivity(new Intent(RegisterEmailActivity.this, MainActivity.class));
+                        startActivity(new Intent(RegisterEmailActivity.this, ProfileEditActivity.class));
                         finishAffinity();
                     }
                 })

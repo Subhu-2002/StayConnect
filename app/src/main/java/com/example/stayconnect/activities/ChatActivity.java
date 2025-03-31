@@ -55,10 +55,6 @@ public class ChatActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Please wait..");
-        progressDialog.setCanceledOnTouchOutside(false);
-
 
         ownerUid = getIntent().getStringExtra("ownerUid");
         myUid = firebaseAuth.getUid();
@@ -115,8 +111,7 @@ public class ChatActivity extends AppCompatActivity {
 
         loadMessages();
 
-        progressDialog.setMessage("Sending message...");
-        progressDialog.show();
+
 
         DatabaseReference refChat = FirebaseDatabase.getInstance().getReference("Chats");
 
@@ -135,13 +130,11 @@ public class ChatActivity extends AppCompatActivity {
             public void onSuccess(Void unused) {
 
                 binding.messageEt.setText("");
-                progressDialog.dismiss();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.e(TAG, "onFailure: ", e);
-                progressDialog.dismiss();
                 Toast.makeText(ChatActivity.this, "Failed to send message due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

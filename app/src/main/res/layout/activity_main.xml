@@ -12,15 +12,34 @@
         android:id="@+id/toolbarRl"
         android:layout_width="match_parent"
         android:layout_height="@dimen/m_toolbar_height">
-        
+
+        <ImageView
+            android:id="@+id/toolbarLogo"
+            android:layout_width="52dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:src="@drawable/logo"/>
+
         <TextView
             android:id="@+id/toolbarTitleTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            style="@style/TextAppearance.MaterialComponents.Body1"
-            android:textColor="@color/text_color_primary"
-            android:text="Home"/>
+            android:layout_toEndOf="@+id/toolbarLogo"
+            android:textColor="@color/primary_color"
+            android:textStyle="bold"
+            android:text="StayConnect"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"/>
+
+        
+<!--        <TextView-->
+<!--            android:id="@+id/toolbarTitleTv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            style="@style/TextAppearance.MaterialComponents.Body1"-->
+<!--            android:textColor="@color/text_color_primary"-->
+<!--            android:text="Home"/>-->
 
         <View
             android:layout_width="match_parent"

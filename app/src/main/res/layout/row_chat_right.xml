@@ -36,14 +36,14 @@
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"/>
 
-        <TextView
-            android:id="@+id/timeTv"
-            style="@style/TextAppearance.MaterialComponents.Caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_color_primary"
-            android:layout_gravity="end"
-            tools:text="23/03/2025 07:34PM"/>
+            <TextView
+                android:id="@+id/timeTv"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_color_primary"
+                android:layout_gravity="end"
+                tools:text="23/03/2025 07:34PM"/>
 
     </LinearLayout>
 

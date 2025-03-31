@@ -111,7 +111,7 @@ public class LocationPickerActivity extends AppCompatActivity implements OnMapRe
         binding.toolbarBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                onBackPressed();
             }
         });
 

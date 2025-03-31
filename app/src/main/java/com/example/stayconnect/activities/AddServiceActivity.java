@@ -548,8 +548,9 @@ public class AddServiceActivity extends AppCompatActivity implements LocationLis
                             userRef.child("servicePicture"+imageIndexForProgress).setValue(publicId);
 
                             progressDialog.dismiss();
-
                             Log.d(TAG, "onSuccess: ");
+
+                            startActivity(new Intent(AddServiceActivity.this, MainActivity.class));
                         }
 
                         @Override

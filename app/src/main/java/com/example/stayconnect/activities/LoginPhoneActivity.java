@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -222,7 +223,7 @@ public class LoginPhoneActivity extends AppCompatActivity {
 
                             Log.d(TAG, "onSuccess: Existing User, Logged In");
 
-                            startActivity(new Intent(LoginPhoneActivity.this, MainActivity.class));
+                            startActivity(new Intent(LoginPhoneActivity.this, ProfileEditActivity.class));
                             finishAffinity();
                         }
                     }

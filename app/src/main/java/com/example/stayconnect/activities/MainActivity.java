@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showProfileFragment() {
-        binding.toolbarTitleTv.setText("Profile");
+//        binding.toolbarTitleTv.setText("Profile");
 
         ProfileFragment fragment = new ProfileFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showFavFragment() {
-        binding.toolbarTitleTv.setText("Fav");
+//        binding.toolbarTitleTv.setText("Fav");
 
         FavFragment fragment = new FavFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showChatsFragment() {
-        binding.toolbarTitleTv.setText("Chats");
+//        binding.toolbarTitleTv.setText("Chats");
 
         ChatsFragment fragment = new ChatsFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showHomeFragment() {
-        binding.toolbarTitleTv.setText("Home");
+//        binding.toolbarTitleTv.setText("Home");
 
         HomeFragment fragment = new HomeFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

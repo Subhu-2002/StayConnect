@@ -155,8 +155,9 @@ public class ProfileEditActivity extends AppCompatActivity {
                         DatabaseReference userRef = database.getReference("Users").child(firebaseAuth.getUid());
 
                         userRef.child("profilePicture").setValue(publicId);
-
                         progressDialog.dismiss();
+
+                        startActivity(new Intent(ProfileEditActivity.this, MainActivity.class));
                     }
 
                     @Override
@@ -170,6 +171,8 @@ public class ProfileEditActivity extends AppCompatActivity {
                     }
                 }).dispatch();
 
+
+        updateProfileDb(null);
 
 
 //        String filePathAndName = "UserImages/" + "Profile_" + firebaseAuth.getUid();
@@ -266,7 +269,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                         String email = "" + snapshot.child("email").getValue();
                         String phoneCode = "" + snapshot.child("phoneCode").getValue();
                         String phoneNumber = "" + snapshot.child("phoneNumber").getValue();
-                        String publicId = ""+ snapshot.child("publicId").getValue();
+                        String publicId = ""+ snapshot.child("profilePicture").getValue();
                         String imageUrl = MediaManager.get().url().generate(publicId);
                         String timestamp = "" + snapshot.child("timestamp").getValue();
                         userType = "" + snapshot.child("userType").getValue();
@@ -291,8 +294,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                         binding.phoneNumberEt.setText(phoneNumber);
 
                         try {
-                            int phoneCodeInt = Integer.parseInt(phoneCode.replace("+", ""));
-                            binding.countryCodePicker.setCountryForPhoneCode(phoneCodeInt);
+                            binding.phoneNumberEt.setText(phoneNumber);
                         } catch (Exception e) {
                             Log.e(TAG, "onDataChange: ", e);
                         }
