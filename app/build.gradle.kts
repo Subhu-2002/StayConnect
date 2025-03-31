@@ -51,6 +51,8 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.firebase.crashlytics)
     implementation(libs.play.services.auth)
+    implementation(libs.firebase.messaging.v2411)
+    implementation (libs.firebase.bom)
 
     implementation ("com.cloudinary:cloudinary-android:3.0.2")
 

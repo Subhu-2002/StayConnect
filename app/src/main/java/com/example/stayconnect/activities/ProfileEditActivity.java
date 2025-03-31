@@ -60,6 +60,8 @@ public class ProfileEditActivity extends AppCompatActivity {
 
     private String userType = "";
 
+    private String publicId = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,12 +113,24 @@ public class ProfileEditActivity extends AppCompatActivity {
         phoneCode = binding.countryCodePicker.getSelectedCountryCodeWithPlus();
         phoneNumber = binding.phoneNumberEt.getText().toString().trim();
 
-        if (imageUri == null) {
 
-            updateProfileDb(null);
-        }else{
+        if (name.isEmpty()) {
+            binding.nameEt.setError("Enter Your Name");
+            binding.nameEt.requestFocus();
+        } else if (email.isEmpty()) {
+            binding.emailEt.setError("Enter Your Email");
+            binding.emailEt.requestFocus();
+        } else if (phoneNumber.isEmpty()) {
+            binding.phoneNumberEt.setError("Enter Phone Number");
+            binding.phoneNumberEt.requestFocus();
+        } else{
+            if (imageUri == null) {
 
-            uploadProfileImageStorage();
+                updateProfileDb(null);
+            }else{
+
+                uploadProfileImageStorage();
+            }
         }
     }
 
@@ -149,7 +163,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(String requestId, Map resultData) {
-                        String publicId = (String) resultData.get("public_id");
+                        publicId = (String) resultData.get("public_id");
 
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference userRef = database.getReference("Users").child(firebaseAuth.getUid());

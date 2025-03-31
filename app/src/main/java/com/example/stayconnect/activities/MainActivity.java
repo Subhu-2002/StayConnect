@@ -213,10 +213,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private ActivityResultLauncher<String> requestNotificationPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+    private ActivityResultLauncher<String> requestNotificationPermission = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            new ActivityResultCallback<Boolean>() {
         @Override
         public void onActivityResult(Boolean isGranted) {
             Log.d(TAG, "onActivityResult: Notification Permission State : " + isGranted);
+
+
         }
     });
 }
